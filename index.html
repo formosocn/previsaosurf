@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Previsão de Surf PE | Portal Oficial</title>
+  <title>Previsão de Surf PE | Central de Decisão Rápida</title>
   
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -27,7 +27,7 @@
     }
   </script>
   <style>
-    .leaflet-tile { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3); }
+    .leaflet-tile { filter: brightness(0.5) invert(1) contrast(2.5) hue-rotate(190deg) saturate(0.4); }
     .leaflet-container { background: #080c14 !important; font-family: inherit; }
     .leaflet-popup-content-wrapper { background: #0f172a; color: white; border: 1px solid #00f0ff33; border-radius: 12px; }
     .leaflet-popup-tip { background: #0f172a; }
@@ -36,37 +36,38 @@
 <body class="bg-[#080c14] text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-black min-h-screen flex flex-col justify-between">
 
   <div>
-    <!-- HEADER NAVEGAÇÃO -->
+    <!-- HEADER DE NAVEGAÇÃO -->
     <header class="border-b border-slate-800/80 bg-[#080c14]/90 backdrop-blur sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-4 h-24 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         
-        <!-- LOGOS INTEGRADAS (PREVISÃO SURF + MAROLITOS) -->
-        <div class="flex items-center gap-5">
+        <div class="flex items-center gap-4">
           <a href="#" class="flex items-center">
             <img 
               src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1787225337/logo_previsaoSurf_ahmoc9.png" 
-              alt="Previsão de Surf" 
-              class="h-20 w-auto object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.2)]"
+              alt="Previsão de Surf PE" 
+              class="h-16 w-auto object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.2)]"
               style="filter: invert(1) brightness(2);"
             />
           </a>
 
-          <span class="h-10 w-[1px] bg-slate-800"></span>
+          <span class="h-8 w-[1px] bg-slate-800 hidden sm:block"></span>
 
-          <a href="#" class="flex items-center">
+          <a href="#" class="hidden sm:flex items-center">
             <img 
               src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1784388374/logo_marolitos_kmmhkw.png" 
               alt="Grupo Marolitos" 
-              class="h-10 w-auto object-contain opacity-85 hover:opacity-100 transition"
+              class="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition"
               style="filter: invert(1) brightness(2);"
             />
           </a>
         </div>
         
-        <!-- MENU -->
-        <div class="flex items-center gap-6 text-xs font-semibold uppercase tracking-wider">
+        <div class="flex items-center gap-5 text-xs font-semibold uppercase tracking-wider">
+          <a href="#hero-resumo" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-cyan-400"></i> Hoje em PE
+          </a>
           <a href="#picos" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-location-dot text-cyan-400"></i> Picos
+            <i class="fa-solid fa-chart-line text-cyan-400"></i> Picos
           </a>
           <a href="#wsl" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
             <i class="fa-solid fa-trophy text-amber-400"></i> WSL
@@ -76,29 +77,159 @@
       </div>
     </header>
 
-    <!-- HERO MAPA INTERATIVO -->
+    <!-- BANNER HERO & CENTRAL DE DECISÃO RÁPIDA -->
+    <section id="hero-resumo" class="relative border-b border-slate-800 bg-gradient-to-b from-[#0f172a] via-[#080c14] to-[#080c14] pt-8 pb-12 px-4">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- TITULO DA SEÇÃO & DATA -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+          <div>
+            <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest inline-flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> RESUMO DO DIA E SEMANA PE
+            </span>
+            <h1 class="text-3xl md:text-4xl font-black text-white mt-2 tracking-tight">Previsão de Surf em Pernambuco</h1>
+          </div>
+
+          <!-- RÉGUA DE NAVEGAÇÃO DOS 7 DIAS -->
+          <div id="regua-dias" class="flex gap-1.5 overflow-x-auto pb-2 w-full md:w-auto">
+          </div>
+        </div>
+
+        <!-- SEÇÃO: MELHOR JANELA DE HOJE EM PE -->
+        <div class="bg-gradient-to-r from-cyan-950/60 via-slate-900 to-slate-900 border border-cyan-500/30 rounded-3xl p-6 mb-8 shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-stopwatch text-cyan-400 text-xl"></i>
+              </div>
+              <div>
+                <span class="text-xs font-mono font-extrabold uppercase text-cyan-400 tracking-wider">Janela Recomendada do Dia</span>
+                <h3 id="janela-titulo" class="text-xl font-black text-white mt-0.5">Borete & Itapuama (Manhã) das 06:00 às 09:00</h3>
+                <p id="janela-desc" class="text-xs text-slate-300 mt-1 leading-relaxed">
+                  Vento terral suave de manhã (< 8 nós) alinhado com maré enchendo na bancada. Melhores condições para maroleira de alta performance.
+                </p>
+              </div>
+            </div>
+
+            <a href="#picos" class="shrink-0 px-5 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-wider rounded-xl transition shadow-lg shadow-cyan-500/20">
+              Escolher Pico <i class="fa-solid fa-chevron-down ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- GRID DE CARDS RESUMO DOS PICOS PRINCIPAIS -->
+        <div id="grid-resumo-picos" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Card Itapuama -->
+          <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 hover:border-cyan-500/40 transition shadow-xl flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-2xl font-black text-white">Itapuama</h3>
+                  <span class="text-xs text-slate-400 font-mono">Cabo de Santo Agostinho</span>
+                </div>
+                <span id="score-ita" class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-black rounded-lg">
+                  8.0 / 10
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Onda</span>
+                  <p id="ita-altura" class="text-lg font-black text-white mt-0.5">0.8m</p>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Período</span>
+                  <p id="ita-periodo" class="text-lg font-black text-emerald-400 mt-0.5">11s</p>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Vento</span>
+                  <p id="ita-vento" class="text-lg font-black text-amber-400 mt-0.5">7 nós</p>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Energia</span>
+                  <p id="ita-energia" class="text-lg font-black text-purple-400 mt-0.5">310 J</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between mt-2">
+              <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-compass text-cyan-400 mr-1"></i> Swell SE | Vento ESE</span>
+              <a href="/dashboards/itapuama" class="px-4 py-2 bg-slate-800 hover:bg-cyan-500 hover:text-black text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-xl transition border border-slate-700">
+                Dashboard 7 Dias <i class="fa-solid fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card Borete -->
+          <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 hover:border-cyan-500/40 transition shadow-xl flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-2xl font-black text-white">Borete</h3>
+                  <span class="text-xs text-slate-400 font-mono">Porto de Galinhas</span>
+                </div>
+                <span id="score-bor" class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-black rounded-lg">
+                  8.5 / 10
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Onda</span>
+                  <p id="bor-altura" class="text-lg font-black text-white mt-0.5">0.9m</p>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Período</span>
+                  <p id="bor-periodo" class="text-lg font-black text-emerald-400 mt-0.5">11s</p>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Vento</span>
+                  <p id="bor-vento" class="text-lg font-black text-emerald-400 mt-0.5">5 nós</p>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Energia</span>
+                  <p id="bor-energia" class="text-lg font-black text-purple-400 mt-0.5">340 J</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between mt-2">
+              <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-compass text-cyan-400 mr-1"></i> Swell SE | Vento S</span>
+              <a href="/dashboards/borete" class="px-4 py-2 bg-slate-800 hover:bg-cyan-500 hover:text-black text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-xl transition border border-slate-700">
+                Dashboard 7 Dias <i class="fa-solid fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MAPA INTERATIVO DOS PICOS DE PE -->
     <section class="relative border-b border-slate-800">
       <div class="absolute top-4 left-4 z-[1000] bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-800 max-w-sm shadow-2xl">
         <div class="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-wider mb-1">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> Mapeamento de Picos
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> Mapeamento Litoral PE
         </div>
-        <h1 class="text-lg font-extrabold text-white leading-tight">Escolha o Pico para Ver a Previsão Semanal</h1>
-        <p class="text-xs text-slate-400 mt-1">Acesse os painéis completos com gráficos de swell, direção do vento e marés de 7 dias.</p>
+        <h2 class="text-lg font-extrabold text-white leading-tight">Localização dos Picos Mapeados</h2>
+        <p class="text-xs text-slate-400 mt-1">Clique nos marcadores no mapa para acessar os relatórios semanais.</p>
       </div>
 
-      <div id="map" class="h-[380px] w-full z-0"></div>
+      <div id="map" class="h-[340px] w-full z-0"></div>
     </section>
 
-    <!-- QUADROS DOS PICOS (ITAPUAMA E BORETE) -->
+    <!-- CENTRAL DE DASHBOARDS (ITAPUAMA & BORETE) -->
     <section id="picos" class="py-12 px-4 max-w-7xl mx-auto">
       <div class="mb-8 border-b border-slate-800 pb-4">
-        <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-bold">Central de Previsões</span>
-        <h2 class="text-3xl font-black text-white tracking-tight">Dashboards da Semana (7 Dias)</h2>
+        <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-bold">Detalhamento Completo</span>
+        <h2 class="text-3xl font-black text-white tracking-tight">Dashboards Dinâmicos de 7 Dias</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <!-- ITAPUAMA -->
+        <!-- ITAPUAMA DASHBOARD CARD -->
         <div class="bg-gradient-to-b from-slate-900 to-[#0c1322] border border-slate-800 hover:border-cyan-500/50 rounded-3xl p-8 relative overflow-hidden group shadow-2xl transition-all duration-300 flex flex-col justify-between">
           <div class="absolute -right-6 -top-6 text-slate-800/20 text-9xl font-black select-none pointer-events-none group-hover:text-cyan-500/10 transition">
             ITA
@@ -117,7 +248,7 @@
 
             <h3 class="text-3xl font-black text-white group-hover:text-cyan-400 transition">Praia de Itapuama</h3>
             <p class="text-slate-400 text-sm mt-3 leading-relaxed">
-              Acesse o gráfico dinâmico completo de 7 dias com séries de vento, período de vaga, direção primária do swell e tábua de marés.
+              Gráfico dinâmico completo de 7 dias com altura de vaga, swell primário, rajadas de vento em nós, pressão atmosférica e tábua de marés alinhada à CHM.
             </p>
           </div>
 
@@ -129,7 +260,7 @@
           </div>
         </div>
 
-        <!-- BORETE -->
+        <!-- BORETE DASHBOARD CARD -->
         <div class="bg-gradient-to-b from-slate-900 to-[#0c1322] border border-slate-800 hover:border-cyan-500/50 rounded-3xl p-8 relative overflow-hidden group shadow-2xl transition-all duration-300 flex flex-col justify-between">
           <div class="absolute -right-6 -top-6 text-slate-800/20 text-9xl font-black select-none pointer-events-none group-hover:text-cyan-500/10 transition">
             BOR
@@ -148,7 +279,7 @@
 
             <h3 class="text-3xl font-black text-white group-hover:text-cyan-400 transition">Praia do Borete</h3>
             <p class="text-slate-400 text-sm mt-3 leading-relaxed">
-              Acompanhe a variação do vento maral/terral, altura de onda diária e janelas ideais de queda para a bancada do Borete nos próximos 7 dias.
+              Monitoramento hora a hora para a bancada do Borete. Gráficos de período, altura de ondulação e rajadas de vento com alertas de maré.
             </p>
           </div>
 
@@ -174,7 +305,7 @@
             <h2 class="text-2xl font-black text-white">Men's Championship Tour</h2>
           </div>
           <span class="px-3 py-1 bg-slate-800 text-slate-300 font-mono text-xs rounded-full border border-slate-700 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Atualização diária
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Ranking Atualizado
           </span>
         </div>
 
@@ -254,22 +385,18 @@
   <footer class="border-t border-slate-800/80 bg-[#060910] py-8 px-4 mt-12">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
       
-      <!-- ESQUERDA: DIREITOS RESERVADOS -->
       <div class="w-full md:w-1/3 text-center md:text-left">
         <p class="text-xs text-slate-400 font-medium">
           © 2026 Previsão de Surf PE.<br class="hidden lg:block"> Todos os direitos reservados.
         </p>
       </div>
 
-      <!-- CENTRO: WIDGET MAP MY VISITORS -->
       <div class="w-full md:w-1/3 flex justify-center">
-        <!-- QUADRO COM DIMENSÕES CRAVADAS (100x54) -->
         <div class="w-[100px] h-[54px] overflow-hidden flex justify-center items-center opacity-80 hover:opacity-100 transition duration-300">
           <script type='text/javascript' id='mapmyvisitors' src='https://mapmyvisitors.com/map.js?cl=ffffff&w=100&t=tt&d=GzUhVZWUDAquewuQBXVou2Hd3Zot__i6S60nbMc5Thg'></script>
         </div>
       </div>
 
-      <!-- DIREITA: LOGO VEXTOR ORIGINAL -->
       <div class="w-full md:w-1/3 flex items-center justify-center md:justify-end gap-3">
         <span class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-mono font-semibold text-right">Desenvolvido por</span>
         <a href="https://vextor.com.br" target="_blank" class="hover:opacity-90 transition duration-300 shrink-0">
@@ -284,16 +411,61 @@
     </div>
   </footer>
 
-  <!-- MAPA SCRIPT -->
+  <!-- DADOS DINÂMICOS & LÓGICA DO MAPA E RÉGUA -->
   <script>
+    const dadosItapuama = [];
+    const dadosBorete = [];
+
+    // 1. Renderiza a Régua de Dias no Topo
+    const reguaContainer = document.getElementById('regua-dias');
+    const diasSemanaSiglas = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
+    
+    for (let i = 0; i < 7; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() + i);
+      const diaStr = String(d.getDate()).padStart(2, '0');
+      const mesStr = String(d.getMonth() + 1).padStart(2, '0');
+      const sigla = diasSemanaSiglas[d.getDay()];
+
+      const btn = document.createElement('button');
+      btn.className = 'px-3 py-1.5 rounded-xl border font-mono text-xs font-bold transition shrink-0 ' + (i === 0 ? 'bg-cyan-500 text-black border-cyan-400' : 'bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-700');
+      btn.innerHTML = (i === 0 ? 'HOJE' : sigla) + ' ' + diaStr + '/' + mesStr;
+      btn.onclick = function() { selecionarDiaRegua(i, btn); };
+      reguaContainer.appendChild(btn);
+    }
+
+    function selecionarDiaRegua(index, element) {
+      document.querySelectorAll('#regua-dias button').forEach(function(b) {
+        b.className = 'px-3 py-1.5 rounded-xl border font-mono text-xs font-bold transition shrink-0 bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-700';
+      });
+      element.className = 'px-3 py-1.5 rounded-xl border font-mono text-xs font-bold transition shrink-0 bg-cyan-500 text-black border-cyan-400';
+      
+      if (dadosItapuama && dadosItapuama[index]) {
+        const itemIta = dadosItapuama[index];
+        document.getElementById('ita-altura').innerText = itemIta.tamanhoOnda || '0.8m';
+        document.getElementById('ita-periodo').innerText = itemIta.periodaSwell || '11s';
+        document.getElementById('ita-vento').innerText = itemIta.ventoVelManha || '7 nós';
+        document.getElementById('ita-energia').innerText = itemIta.energiaOnda || '310 J';
+      }
+
+      if (dadosBorete && dadosBorete[index]) {
+        const itemBor = dadosBorete[index];
+        document.getElementById('bor-altura').innerText = itemBor.tamanhoOnda || '0.9m';
+        document.getElementById('bor-periodo').innerText = itemBor.periodaSwell || '11s';
+        document.getElementById('bor-vento').innerText = itemBor.ventoVelManha || '5 nós';
+        document.getElementById('bor-energia').innerText = itemBor.energiaOnda || '340 J';
+      }
+    }
+
+    // 2. Inicializa o Mapa Interativo Leaflet
     const map = L.map('map', { zoomControl: false }).setView([-8.3500, -34.9600], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
 
     const markerItapuama = L.marker([-8.3015, -34.9520]).addTo(map);
-    markerItapuama.bindPopup("<b>Itapuama</b><br>Clique para abrir o Dashboard de 7 dias.<br><br><a href='/dashboards/itapuama' style='color:#00f0ff;font-weight:bold;'>Acessar Dashboard →</a>");
+    markerItapuama.bindPopup("<b>Itapuama</b><br>Cabo de Santo Agostinho<br><br><a href='/dashboards/itapuama' style='color:#00f0ff;font-weight:bold;'>Ver Dashboard 7 Dias →</a>");
 
     const markerBorete = L.marker([-8.4060, -35.0000]).addTo(map);
-    markerBorete.bindPopup("<b>Borete</b><br>Clique para abrir o Dashboard de 7 dias.<br><br><a href='/dashboards/borete' style='color:#00f0ff;font-weight:bold;'>Acessar Dashboard →</a>");
+    markerBorete.bindPopup("<b>Borete</b><br>Porto de Galinhas<br><br><a href='/dashboards/borete' style='color:#00f0ff;font-weight:bold;'>Ver Dashboard 7 Dias →</a>");
   </script>
 </body>
 </html>
