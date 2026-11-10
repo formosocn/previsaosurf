@@ -136,14 +136,14 @@
         </div>
         <span id="ita-score" class="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 text-xs font-mono font-black rounded-lg">-- / 10</span>
       </div>
-      <p id="ita-label" class="text-sm font-bold text-slate-300 mt-3">Carregando condições...</p>
+      <div class="flex items-end gap-2 mt-4">
+        <span id="ita-hero" class="text-6xl font-black text-white leading-none">--</span>
+        <span class="text-2xl font-black text-slate-400 mb-1">m</span>
+        <span id="ita-faixa" class="text-xs font-mono text-slate-500 mb-1.5 ml-1"></span>
+      </div>
+      <p id="ita-label" class="text-sm font-bold text-slate-300 mt-2">Carregando condições...</p>
       <p id="ita-pico" class="text-[11px] font-mono text-slate-500 mt-0.5 min-h-[1rem]"></p>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
-        
-  <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
-    <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-water text-slate-500"></i> Altura</span>
-    <p id="ita-altura" class="text-xl font-black text-white mt-1">--</p>
-  </div>
+      <div class="grid grid-cols-3 gap-3 my-4">
         
   <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
     <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-clock text-slate-500"></i> Período</span>
@@ -178,14 +178,14 @@
         </div>
         <span id="bor-score" class="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 text-xs font-mono font-black rounded-lg">-- / 10</span>
       </div>
-      <p id="bor-label" class="text-sm font-bold text-slate-300 mt-3">Carregando condições...</p>
+      <div class="flex items-end gap-2 mt-4">
+        <span id="bor-hero" class="text-6xl font-black text-white leading-none">--</span>
+        <span class="text-2xl font-black text-slate-400 mb-1">m</span>
+        <span id="bor-faixa" class="text-xs font-mono text-slate-500 mb-1.5 ml-1"></span>
+      </div>
+      <p id="bor-label" class="text-sm font-bold text-slate-300 mt-2">Carregando condições...</p>
       <p id="bor-pico" class="text-[11px] font-mono text-slate-500 mt-0.5 min-h-[1rem]"></p>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
-        
-  <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
-    <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-water text-slate-500"></i> Altura</span>
-    <p id="bor-altura" class="text-xl font-black text-white mt-1">--</p>
-  </div>
+      <div class="grid grid-cols-3 gap-3 my-4">
         
   <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
     <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-clock text-slate-500"></i> Período</span>
@@ -662,7 +662,18 @@
       var h = best.h;
       var alt = num(h.altura_onda), per = num(h.periodo_swell), ven = num(h.velocidade_vento), en = num(h.energia_swell);
 
-      setTile(s.id + '-altura', alt.toFixed(1) + 'm', corAltura(alt));
+      var heroEl = document.getElementById(s.id + '-hero');
+      if (heroEl) {
+        heroEl.textContent = alt.toFixed(1);
+        heroEl.className = 'text-6xl font-black leading-none ' + corAltura(alt);
+      }
+      var amin = null, amax = null;
+      best.lista.forEach(function (x) {
+        var a = num(x.altura_onda);
+        if (amin === null || a < amin) amin = a;
+        if (amax === null || a > amax) amax = a;
+      });
+      setText(s.id + '-faixa', amin !== null ? 'no dia: ' + amin.toFixed(1) + ' a ' + amax.toFixed(1) + ' m' : '');
       setTile(s.id + '-periodo', per.toFixed(0) + 's', corPeriodo(per));
       setTile(s.id + '-vento', ven.toFixed(0) + ' nós', corVento(ven));
 
@@ -681,7 +692,7 @@
       var lb = document.getElementById(s.id + '-label');
       if (lb) {
         lb.textContent = scoreLabel(best.score);
-        lb.className = 'text-sm font-bold mt-3 ' + scoreText(best.score);
+        lb.className = 'text-sm font-bold mt-2 ' + scoreText(best.score);
       }
       var hn = hourNum(h);
       setText(s.id + '-pico', hn !== null ? 'Melhor horário: ' + fmtHora(hn) : '');
@@ -714,8 +725,8 @@
       }
 
       var j = janela(top.best);
-      var titulo = top.nome + (j ? ' das ' + fmtHora(j.ini) + ' às ' + fmtHora(j.fim) : ' (melhor momento do dia)');
-      var desc = 'Onda de ' + top.alt.toFixed(1) + 'm, período de ' + top.per.toFixed(0) + 's e vento de ' + top.ven.toFixed(0) + ' nós';
+      var titulo = top.nome + ' ' + top.alt.toFixed(1) + 'm' + (j ? ' das ' + fmtHora(j.ini) + ' às ' + fmtHora(j.fim) : ' (melhor momento do dia)');
+      var desc = 'Período de ' + top.per.toFixed(0) + 's e vento de ' + top.ven.toFixed(0) + ' nós';
       if (top.per >= 11) desc += ' — periodão!';
       else desc += '.';
       if (seg) desc += ' ' + seg.nome + ' chega a ' + seg.score.toFixed(1) + ' / 10 no melhor horário dele.';
