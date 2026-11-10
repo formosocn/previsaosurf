@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tábua de Marés PE | Previsão de Surf PE</title>
+  <meta name="description" content="Tábua de marés oficial dos próximos 7 dias para o litoral de Pernambuco: Itapuama, Borete, Porto de Galinhas e região.">
+
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#0EA5E9',
+            sandbg: '#F8F6F2'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#F8F6F2] text-[#0F172A] font-sans antialiased selection:bg-[#0EA5E9] selection:text-white min-h-screen flex flex-col justify-between">
+
+  <div>
+    <!-- HEADER -->
+    <header class="border-b border-slate-200/80 bg-white/90 backdrop-blur sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+
+        <div class="flex items-center gap-4">
+          <a href="/" class="flex items-center">
+            <img
+              src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1787225337/logo_previsaoSurf_ahmoc9.png"
+              alt="Previsão de Surf PE"
+              class="h-14 w-auto object-contain"
+            />
+          </a>
+          <span class="h-8 w-[1px] bg-slate-200 hidden sm:block"></span>
+          <a href="/" class="hidden sm:flex items-center">
+            <img
+              src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1784388374/logo_marolitos_kmmhkw.png"
+              alt="Grupo Marolitos"
+              class="h-7 w-auto object-contain opacity-75 hover:opacity-100 transition"
+            />
+          </a>
+        </div>
+
+        <nav class="flex items-center gap-4 sm:gap-6 text-xs font-semibold uppercase tracking-wider">
+          <a href="/" class="text-[#64748B] hover:text-[#0EA5E9] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-house text-[#0EA5E9]"></i> <span class="hidden sm:inline">Início</span>
+          </a>
+          <a href="/mares" class="text-[#0EA5E9] font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-arrows-up-down text-[#0EA5E9]"></i> <span class="hidden sm:inline">Tábua de Marés</span>
+          </a>
+          <a href="/sobre" class="text-[#64748B] hover:text-[#0EA5E9] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-info text-[#0EA5E9]"></i> <span class="hidden sm:inline">Sobre Nós</span>
+          </a>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- HERO MARÉS -->
+    <section class="py-10 md:py-14 px-4 max-w-5xl mx-auto text-center">
+      <span class="bg-sky-100 text-[#0EA5E9] border border-sky-200/80 px-4 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-widest inline-block mb-3">
+        Marinha do Brasil (CHM)
+      </span>
+      <h1 class="text-3xl md:text-5xl font-black text-[#0F172A] tracking-tight">Tábua de Marés de Pernambuco</h1>
+      <p class="text-base text-[#64748B] mt-3 max-w-2xl mx-auto">
+        Consulte os horários de preamar (cheia) e baixa-mar (seca) dos próximos 7 dias para programar o caído ideal na bancada.
+      </p>
+    </section>
+
+    <!-- GRID DOS CARDS DE MARÉ -->
+    <section class="pb-16 px-4 max-w-5xl mx-auto">
+      <div id="grid-mares" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Gerado dinamicamente no navegador -->
+      </div>
+    </section>
+
+    <!-- DICAS DE MARÉ POR PICO -->
+    <section class="pb-16 px-4 max-w-5xl mx-auto">
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-8 shadow-sm">
+        <h2 class="text-xl font-black text-[#0F172A] mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-lightbulb text-[#F59E0B]"></i> Funcionamento dos Picos x Maré
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[#64748B]">
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <h3 class="font-extrabold text-[#0F172A] mb-1">Praia de Itapuama</h3>
+            <p>Funciona melhor na <strong>maré seca para média enchendo</strong>. Com maré muito cheia, as ondas tendem a gordo e encostam demais na bancada.</p>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <h3 class="font-extrabold text-[#0F172A] mb-1">Praia do Borete</h3>
+            <p>Segura melhor as séries na <strong>meia maré e seca</strong>. Na maré totalmente cheia a vala fica mexida e com muita lavada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RODAPÉ -->
+  <footer class="border-t border-slate-200/80 bg-white py-8 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="text-center md:text-left">
+        <p class="text-xs text-[#64748B] font-medium">
+          © 2026 Previsão de Surf PE. Todos os direitos reservados.
+        </p>
+      </div>
+      <div class="flex items-center justify-center md:justify-end gap-3">
+        <span class="text-[10px] sm:text-xs uppercase tracking-widest text-[#64748B] font-mono font-semibold">Desenvolvido por</span>
+        <a href="https://vextor.com.br" target="_blank" class="hover:opacity-90 transition shrink-0">
+          <img
+            src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1780397077/logo_new_p6ifqr.png"
+            alt="Vextor IA"
+            class="h-10 w-auto object-contain"
+          />
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- RENDERIZADOR DOS CARDS DE MARÉ -->
+  <script>
+    var maresDados = [{"data":"10/11/2026","dia_semana":"TER.","mare_texto":"04:10 | CHEIA 2.1m | 10:10 | SECA 0.4m | 16:19 | CHEIA 2.1m | 22:34 | SECA 0.3m"},{"data":"11/11/2026","dia_semana":"QUA.","mare_texto":"04:47 | CHEIA 2.0m | 10:44 | SECA 0.4m | 16:55 | CHEIA 2.1m | 23:08 | SECA 0.4m"},{"data":"12/11/2026","dia_semana":"QUI.","mare_texto":"05:19 | CHEIA 1.9m | 11:14 | SECA 0.5m | 17:27 | CHEIA 2.0m | 23:44 | SECA 0.5m"},{"data":"13/11/2026","dia_semana":"SEX.","mare_texto":"05:59 | CHEIA 1.8m | 11:51 | SECA 0.6m | 18:04 | CHEIA 1.9m"},{"data":"14/11/2026","dia_semana":"SÁB.","mare_texto":"00:23 | SECA 0.6m | 06:40 | CHEIA 1.7m | 12:32 | SECA 0.8m | 18:51 | CHEIA 1.8m"},{"data":"15/11/2026","dia_semana":"DOM.","mare_texto":"01:10 | SECA 0.7m | 07:29 | CHEIA 1.7m | 13:25 | SECA 0.8m | 19:44 | CHEIA 1.8m"},{"data":"16/11/2026","dia_semana":"SEG.","mare_texto":"02:12 | SECA 0.8m | 08:32 | CHEIA 1.6m | 14:38 | SECA 0.9m | 20:49 | CHEIA 1.7m"}];
+    var container = document.getElementById('grid-mares');
+
+    if (!maresDados || !maresDados.length) {
+      container.innerHTML = '<div class="col-span-full text-center text-slate-400 py-8 font-mono">Carregando dados da tábua de marés...</div>';
+    } else {
+      container.innerHTML = maresDados.map(function(d, idx) {
+        var eventos = String(d.mare_texto || '').split('|').map(function(t){ return t.trim(); });
+        var htmlEventos = '';
+
+        for (var i = 0; i + 1 < eventos.length; i += 2) {
+          var hora = eventos[i];
+          var desc = eventos[i+1] || '';
+          var isCheia = desc.toUpperCase().indexOf('CHEIA') > -1;
+          
+          // Trata o texto (ex: "CHEIA 2.1m" -> limpa para exibir apenas a altura com o m)
+          var alturaClean = desc.replace(/CHEIA|SECA/i, '').trim();
+
+          htmlEventos += 
+            '<div class="flex items-center justify-between p-3 rounded-xl ' + (isCheia ? 'bg-sky-50/70 border border-sky-100' : 'bg-slate-50 border border-slate-100') + '">' +
+              '<div class="flex items-center gap-2.5">' +
+                '<i class="fa-solid ' + (isCheia ? 'fa-arrow-up text-[#0EA5E9]' : 'fa-arrow-down text-[#F97316]') + ' text-sm"></i>' +
+                '<span class="text-xs font-bold uppercase ' + (isCheia ? 'text-[#0EA5E9]' : 'text-[#F97316]') + '">' + (isCheia ? 'Cheia' : 'Seca') + '</span>' +
+              '</div>' +
+              '<div class="text-right">' +
+                '<span class="font-mono font-extrabold text-[#0F172A] text-sm">' + hora + '</span>' +
+                '<span class="text-xs font-mono text-[#64748B] ml-2">' + alturaClean + '</span>' +
+              '</div>' +
+            '</div>';
+        }
+
+        return (
+          '<div class="bg-white border ' + (idx === 0 ? 'border-[#0EA5E9] shadow-md ring-2 ring-sky-500/10' : 'border-slate-200/80 shadow-sm') + ' rounded-3xl p-6 flex flex-col justify-between">' +
+            '<div>' +
+              '<div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">' +
+                '<div>' +
+                  '<span class="text-[10px] font-mono font-bold text-[#0EA5E9] uppercase tracking-wider">' + (idx === 0 ? 'Hoje' : d.dia_semana) + '</span>' +
+                  '<h3 class="text-xl font-black text-[#0F172A]">' + d.data + '</h3>' +
+                '</div>' +
+                (idx === 0 ? '<span class="px-2.5 py-1 bg-[#0EA5E9] text-white text-[10px] font-mono font-extrabold rounded-full">HOJE</span>' : '') +
+              '</div>' +
+              '<div class="space-y-2.5">' +
+                htmlEventos +
+              '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+    }
+  </script>
+</body>
+</html>
