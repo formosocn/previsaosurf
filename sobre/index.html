@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre Nós | Previsão de Surf PE</title>
+  <meta name="description" content="Conheça a história e a tecnologia por trás do Previsão de Surf PE. Informação rápida, direto ao ponto e sem enrolação para o surfista de Pernambuco.">
+
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#0EA5E9',
+            sandbg: '#F8F6F2'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#F8F6F2] text-[#0F172A] font-sans antialiased selection:bg-[#0EA5E9] selection:text-white min-h-screen flex flex-col justify-between">
+
+  <div>
+    <!-- HEADER -->
+    <header class="border-b border-slate-200/80 bg-white/90 backdrop-blur sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+
+        <div class="flex items-center gap-4">
+          <a href="/" class="flex items-center">
+            <img
+              src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1787225337/logo_previsaoSurf_ahmoc9.png"
+              alt="Previsão de Surf PE"
+              class="h-14 w-auto object-contain"
+            />
+          </a>
+
+          <span class="h-8 w-[1px] bg-slate-200 hidden sm:block"></span>
+
+          <a href="/" class="hidden sm:flex items-center">
+            <img
+              src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1784388374/logo_marolitos_kmmhkw.png"
+              alt="Grupo Marolitos"
+              class="h-7 w-auto object-contain opacity-75 hover:opacity-100 transition"
+            />
+          </a>
+        </div>
+
+        <nav class="flex items-center gap-4 sm:gap-6 text-xs font-semibold uppercase tracking-wider">
+          <a href="/" class="text-[#64748B] hover:text-[#0EA5E9] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-house text-[#0EA5E9]"></i> <span class="hidden sm:inline">Início</span>
+          </a>
+          <a href="/mares" class="text-[#64748B] hover:text-[#0EA5E9] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-arrows-up-down text-[#0EA5E9]"></i> <span class="hidden sm:inline">Tábua de Marés</span>
+          </a>
+          <a href="/sobre" class="text-[#0EA5E9] font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-info text-[#0EA5E9]"></i> <span class="hidden sm:inline">Sobre Nós</span>
+          </a>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- HERO DA PÁGINA SOBRE -->
+    <section class="py-12 md:py-16 px-4 max-w-4xl mx-auto text-center">
+      <span class="bg-sky-100 text-[#0EA5E9] border border-sky-200/80 px-4 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-widest inline-block mb-4">
+        Manifesto & Tecnologia
+      </span>
+      <h1 class="text-3xl md:text-5xl font-black text-[#0F172A] tracking-tight leading-tight">
+        Surf-Tech criado em PE para quem vive a rotina do mar.
+      </h1>
+      <p class="text-base md:text-lg text-[#64748B] mt-4 leading-relaxed max-w-2xl mx-auto">
+        Chega de navegar por sites poluídos, cheios de propagandas e gráficos confusos. O Previsão de Surf PE nasceu com um propósito simples: resposta em 5 segundos.
+      </p>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL (CARDS) -->
+    <section class="pb-16 px-4 max-w-5xl mx-auto space-y-8">
+      
+      <!-- CARD 1: PROPÓSITO -->
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-8 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div class="md:col-span-3 flex justify-center">
+          <div class="w-20 h-20 rounded-3xl bg-sky-50 border border-sky-100 flex items-center justify-center">
+            <i class="fa-solid fa-stopwatch text-[#0EA5E9] text-4xl"></i>
+          </div>
+        </div>
+        <div class="md:col-span-9 text-center md:text-left">
+          <h2 class="text-2xl font-black text-[#0F172A]">Decisão Rápida</h2>
+          <p class="text-sm text-[#64748B] mt-2 leading-relaxed">
+            Nossa plataforma cruza dados de swell, período e rajadas de vento com a tábua de marés da Marinha do Brasil para indicar instantaneamente a <strong>melhor janela de surf do dia</strong> em bancadas como Itapuama e Borete.
+          </p>
+        </div>
+      </div>
+
+      <!-- CARD 2: TECNOLOGIA & DADOS -->
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-8 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div class="md:col-span-9 text-center md:text-left order-2 md:order-1">
+          <h2 class="text-2xl font-black text-[#0F172A]">Inteligência Automática</h2>
+          <p class="text-sm text-[#64748B] mt-2 leading-relaxed">
+            Utilizamos pipelines de dados automatizados via <strong>Vextor IA</strong> que processam modelos oceanográficos globais e mantêm os relatórios e gráficos do site atualizados dinamicamente sem necessidade de manutenção manual.
+          </p>
+        </div>
+        <div class="md:col-span-3 flex justify-center order-1 md:order-2">
+          <div class="w-20 h-20 rounded-3xl bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+            <i class="fa-solid fa-microchip text-[#14B8A6] text-4xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: ECOSSISTEMA LOCAL -->
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-8 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div class="md:col-span-3 flex justify-center">
+          <div class="w-20 h-20 rounded-3xl bg-amber-50 border border-amber-100 flex items-center justify-center">
+            <i class="fa-solid fa-[#F59E0B] fa-people-group text-4xl text-[#F59E0B]"></i>
+          </div>
+        </div>
+        <div class="md:col-span-9 text-center md:text-left">
+          <h2 class="text-2xl font-black text-[#0F172A]">Comunidade & Parceria</h2>
+          <p class="text-sm text-[#64748B] mt-2 leading-relaxed">
+            Em parceria com o <strong>Grupo Marolitos Surf</strong>, fortalecemos a cultura do surf em Pernambuco integrando boletins de ondas, rankings da WSL e conexão direta via grupo do WhatsApp para os locais trocarem fotos, vídeos e relatos das valas.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- WHATSAPP CTA -->
+    <section class="px-4 max-w-5xl mx-auto mb-12">
+      <div class="bg-[#0EA5E9] text-white rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+        <div class="text-center md:text-left">
+          <h3 class="text-2xl font-black">Faça parte da nossa comunidade</h3>
+          <p class="text-sm text-sky-100 mt-1">Receba boletins dos picos e alertas quando o mar encaixar.</p>
+        </div>
+        <a href="/" target="_blank" rel="noopener" class="shrink-0 px-6 py-3.5 bg-white hover:bg-slate-50 text-[#0F172A] font-black text-xs uppercase tracking-wider rounded-xl transition shadow-md flex items-center gap-2">
+          <i class="fa-brands fa-whatsapp text-lg text-[#0EA5E9]"></i> Entrar no Grupo
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- RODAPÉ -->
+  <footer class="border-t border-slate-200/80 bg-white py-8 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="text-center md:text-left">
+        <p class="text-xs text-[#64748B] font-medium">
+          © 2026 Previsão de Surf PE. Todos os direitos reservados.
+        </p>
+      </div>
+
+      <div class="flex items-center justify-center md:justify-end gap-3">
+        <span class="text-[10px] sm:text-xs uppercase tracking-widest text-[#64748B] font-mono font-semibold">Desenvolvido por</span>
+        <a href="https://vextor.com.br" target="_blank" class="hover:opacity-90 transition shrink-0">
+          <img
+            src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1780397077/logo_new_p6ifqr.png"
+            alt="Vextor IA"
+            class="h-10 w-auto object-contain"
+          />
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
