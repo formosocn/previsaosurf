@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,18 +10,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Leaflet.js (Mapa Interativo) -->
+  <!-- Leaflet.js -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            brand: '#00f0ff',
-            darkbg: '#080c14'
+            brand: '#0EA5E9',
+            sandbg: '#F8F6F2'
           }
         }
       }
@@ -29,12 +28,11 @@
   </script>
   <style>
     html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
-    .leaflet-tile { filter: brightness(0.5) invert(1) contrast(2.5) hue-rotate(190deg) saturate(0.4); }
-    .leaflet-container { background: #080c14 !important; font-family: inherit; }
-    .leaflet-popup-content-wrapper { background: #0f172a; color: white; border: 1px solid #00f0ff33; border-radius: 12px; }
-    .leaflet-popup-tip { background: #0f172a; }
+    .leaflet-tile { filter: contrast(1.05) saturate(0.9); }
+    .leaflet-container { background: #F8F6F2 !important; font-family: inherit; }
+    .leaflet-popup-content-wrapper { background: #FFFFFF; color: #0F172A; border: 1px solid #E2E8F0; border-radius: 12px; }
+    .leaflet-popup-tip { background: #FFFFFF; }
 
-    /* Ondas animadas do hero (sem imagem externa) */
     .wave-bg { position: absolute; left: 0; right: 0; bottom: 0; height: 55%; overflow: hidden; pointer-events: none; }
     .wave-bg svg { position: absolute; bottom: 0; left: 0; width: 200%; height: 100%; }
     @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -43,11 +41,11 @@
     @media (prefers-reduced-motion: reduce) { .wave-a, .wave-b { animation: none; } }
   </style>
 </head>
-<body class="bg-[#080c14] text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-black min-h-screen flex flex-col justify-between">
+<body class="bg-[#F8F6F2] text-[#0F172A] font-sans antialiased selection:bg-[#0EA5E9] selection:text-white min-h-screen flex flex-col justify-between">
 
   <div>
-    <!-- HEADER DE NAVEGAÇÃO -->
-    <header class="border-b border-slate-800/80 bg-[#080c14]/90 backdrop-blur sticky top-0 z-50">
+    <!-- HEADER -->
+    <header class="border-b border-slate-200/80 bg-white/90 backdrop-blur sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
 
         <div class="flex items-center gap-4">
@@ -55,186 +53,179 @@
             <img
               src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1787225337/logo_previsaoSurf_ahmoc9.png"
               alt="Previsão de Surf PE"
-              class="h-16 w-auto object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.2)]"
-              style="filter: invert(1) brightness(2);"
+              class="h-14 w-auto object-contain"
             />
           </a>
 
-          <span class="h-8 w-[1px] bg-slate-800 hidden sm:block"></span>
+          <span class="h-8 w-[1px] bg-slate-200 hidden sm:block"></span>
 
           <a href="#" class="hidden sm:flex items-center">
             <img
               src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1784388374/logo_marolitos_kmmhkw.png"
               alt="Grupo Marolitos"
-              class="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition"
-              style="filter: invert(1) brightness(2);"
+              class="h-7 w-auto object-contain opacity-75 hover:opacity-100 transition"
             />
           </a>
         </div>
 
-        <nav class="flex items-center gap-4 sm:gap-5 text-xs font-semibold uppercase tracking-wider">
-          <a href="#hero-resumo" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-bolt text-cyan-400"></i> <span class="hidden sm:inline">Hoje em PE</span>
+        <nav class="flex items-center gap-4 sm:gap-6 text-xs font-semibold uppercase tracking-wider">
+          <a href="#hero-resumo" class="text-[#64748B] hover:text-[#0EA5E9] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-[#0EA5E9]"></i> <span class="hidden sm:inline">Hoje em PE</span>
           </a>
-          <a href="#picos" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-chart-line text-cyan-400"></i> <span class="hidden sm:inline">Picos</span>
+          <a href="#picos" class="text-[#64748B] hover:text-[#0EA5E9] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-line text-[#0EA5E9]"></i> <span class="hidden sm:inline">Picos</span>
           </a>
-          <a href="#comunidade" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-users text-cyan-400"></i> <span class="hidden sm:inline">Comunidade</span>
+          <a href="#comunidade" class="text-[#64748B] hover:text-[#0EA5E9] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-users text-[#0EA5E9]"></i> <span class="hidden sm:inline">Comunidade</span>
           </a>
-          <a href="#wsl" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-trophy text-amber-400"></i> <span class="hidden sm:inline">WSL</span>
+          <a href="#wsl" class="text-[#64748B] hover:text-[#0EA5E9] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-trophy text-[#F59E0B]"></i> <span class="hidden sm:inline">WSL</span>
           </a>
         </nav>
 
       </div>
     </header>
 
-    <!-- HERO: RESUMO DO DIA -->
-    <section id="hero-resumo" class="relative overflow-hidden border-b border-slate-800 bg-gradient-to-b from-[#0b2a3d] via-[#0a1626] to-[#080c14] pt-8 pb-12 px-4">
+    <!-- HERO -->
+    <section id="hero-resumo" class="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-b from-sky-50/50 via-[#F8F6F2] to-[#F8F6F2] pt-8 pb-12 px-4">
 
       <div class="wave-bg">
         <svg class="wave-a" viewBox="0 0 2880 120" preserveAspectRatio="none">
-          <path d="M0 60 Q180 20 360 60 T720 60 T1080 60 T1440 60 T1800 60 T2160 60 T2520 60 T2880 60 V120 H0 Z" fill="rgba(34,211,238,0.07)"/>
-        </svg>
-        <svg class="wave-b" viewBox="0 0 2880 120" preserveAspectRatio="none" style="bottom:-10px;">
-          <path d="M0 70 Q180 35 360 70 T720 70 T1080 70 T1440 70 T1800 70 T2160 70 T2520 70 T2880 70 V120 H0 Z" fill="rgba(8,12,20,0.55)"/>
+          <path d="M0 60 Q180 20 360 60 T720 60 T1080 60 T1440 60 T1800 60 T2160 60 T2520 60 T2880 60 V120 H0 Z" fill="rgba(14,165,233,0.05)"/>
         </svg>
       </div>
 
       <div class="max-w-7xl mx-auto relative z-10">
 
-        <!-- TÍTULO, BUSCA & RÉGUA DE DIAS -->
+        <!-- TÍTULO & RÉGUA -->
         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-5 mb-6">
           <div>
-            <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest inline-flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Central de decisão rápida
+            <span class="bg-sky-100 text-[#0EA5E9] border border-sky-200/80 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest inline-flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#0EA5E9] animate-pulse"></span> Central de decisão rápida
             </span>
-            <h1 class="text-3xl md:text-5xl font-black text-white mt-3 tracking-tight">Previsão de Surf em PE – <span id="hero-dia" class="text-cyan-400">Hoje</span></h1>
-            <p class="text-slate-300 text-sm mt-2">Vale a pena sair de casa? Em 5 segundos você descobre.</p>
+            <h1 class="text-3xl md:text-5xl font-black text-[#0F172A] mt-3 tracking-tight">Previsão de Surf em PE – <span id="hero-dia" class="text-[#0EA5E9]">Hoje</span></h1>
+            <p class="text-[#64748B] text-sm mt-2">Vale a pena sair de casa? Em 5 segundos você descobre.</p>
           </div>
 
           <div class="w-full lg:w-auto flex flex-col gap-3">
             <div class="relative">
-              <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
               <input id="busca-pico" type="search" placeholder="Buscar pico (ex: Borete)"
-                class="w-full lg:w-72 bg-slate-900/80 border border-slate-700 focus:border-cyan-500 outline-none rounded-xl pl-9 pr-3 py-2.5 text-sm text-white placeholder-slate-500" />
+                class="w-full lg:w-72 bg-white border border-slate-200 focus:border-[#0EA5E9] outline-none rounded-xl pl-9 pr-3 py-2.5 text-sm text-[#0F172A] placeholder-slate-400 shadow-sm" />
             </div>
             <div id="regua-dias" class="flex gap-1.5 overflow-x-auto pb-2 w-full lg:w-auto"></div>
           </div>
         </div>
 
-        <!-- CARDS DOS PICOS -->
+        <!-- GRID RESUMO -->
         <div id="grid-resumo-picos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           
-  <div data-pico="Itapuama" class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 hover:border-cyan-500/40 transition shadow-xl flex flex-col justify-between">
+  <div data-pico="Itapuama" class="bg-white border border-slate-200/80 rounded-3xl p-6 hover:border-[#0EA5E9]/40 transition shadow-sm flex flex-col justify-between">
     <div>
       <div class="flex justify-between items-start">
         <div>
-          <h3 class="text-2xl font-black text-white">Itapuama</h3>
-          <span class="text-xs text-slate-400 font-mono">Cabo de Santo Agostinho</span>
+          <h3 class="text-2xl font-black text-[#0F172A]">Itapuama</h3>
+          <span class="text-xs text-[#64748B] font-mono">Cabo de Santo Agostinho</span>
         </div>
-        <span id="ita-score" class="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 text-xs font-mono font-black rounded-lg">-- / 10</span>
+        <span id="ita-score" class="px-3 py-1 bg-slate-100 border border-slate-200 text-[#0F172A] text-xs font-mono font-black rounded-lg">-- / 10</span>
       </div>
-      <div class="flex items-end gap-2 mt-4">
-        <span id="ita-hero" class="text-6xl font-black text-white leading-none">--</span>
-        <span class="text-2xl font-black text-slate-400 mb-1">m</span>
-        <span id="ita-faixa" class="text-xs font-mono text-slate-500 mb-1.5 ml-1"></span>
-      </div>
-      <p id="ita-label" class="text-sm font-bold text-slate-300 mt-2">Carregando condições...</p>
-      <p id="ita-pico" class="text-[11px] font-mono text-slate-500 mt-0.5 min-h-[1rem]"></p>
-      <div class="grid grid-cols-3 gap-3 my-4">
+      <p id="ita-label" class="text-sm font-bold text-[#0F172A] mt-3">Carregando condições...</p>
+      <p id="ita-pico" class="text-[11px] font-mono text-[#64748B] mt-0.5 min-h-[1rem]"></p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
         
-  <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
-    <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-clock text-slate-500"></i> Período</span>
-    <p id="ita-periodo" class="text-xl font-black text-white mt-1">--</p>
+  <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+    <span class="text-[10px] font-mono text-[#64748B] uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-water text-slate-400"></i> Altura</span>
+    <p id="ita-altura" class="text-xl font-black text-[#0F172A] mt-1">--</p>
   </div>
         
-  <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
-    <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-wind text-slate-500"></i> Vento</span>
-    <p id="ita-vento" class="text-xl font-black text-white mt-1">--</p>
+  <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+    <span class="text-[10px] font-mono text-[#64748B] uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-clock text-slate-400"></i> Período</span>
+    <p id="ita-periodo" class="text-xl font-black text-[#0F172A] mt-1">--</p>
   </div>
         
-  <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
-    <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-arrows-up-down text-slate-500"></i> Maré</span>
-    <p id="ita-mare" class="text-xl font-black text-white mt-1">--</p>
+  <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+    <span class="text-[10px] font-mono text-[#64748B] uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-wind text-slate-400"></i> Vento</span>
+    <p id="ita-vento" class="text-xl font-black text-[#0F172A] mt-1">--</p>
+  </div>
+        
+  <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+    <span class="text-[10px] font-mono text-[#64748B] uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-arrows-up-down text-slate-400"></i> Maré</span>
+    <p id="ita-mare" class="text-xl font-black text-[#0F172A] mt-1">--</p>
   </div>
       </div>
     </div>
-    <div class="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2">
-      <span id="ita-extra" class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-compass text-cyan-400 mr-1"></i> Previsão atualizada</span>
-      <a href="/dashboards/itapuama" class="px-4 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-lg shadow-cyan-500/20 text-center">
-        Ver previsão de 7 dias <i class="fa-solid fa-arrow-right ml-1"></i>
+    <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2">
+      <span id="ita-extra" class="text-xs text-[#64748B] font-mono"><i class="fa-solid fa-compass text-[#0EA5E9] mr-1"></i> Previsão atualizada</span>
+      <a href="/dashboards/itapuama" class="px-4 py-2.5 bg-[#0EA5E9] hover:bg-[#06B6D4] text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-md shadow-sky-500/10 text-center">
+        Ver 7 dias <i class="fa-solid fa-arrow-right ml-1"></i>
       </a>
     </div>
   </div>
           
-  <div data-pico="Borete" class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 hover:border-cyan-500/40 transition shadow-xl flex flex-col justify-between">
+  <div data-pico="Borete" class="bg-white border border-slate-200/80 rounded-3xl p-6 hover:border-[#0EA5E9]/40 transition shadow-sm flex flex-col justify-between">
     <div>
       <div class="flex justify-between items-start">
         <div>
-          <h3 class="text-2xl font-black text-white">Borete</h3>
-          <span class="text-xs text-slate-400 font-mono">Porto de Galinhas</span>
+          <h3 class="text-2xl font-black text-[#0F172A]">Borete</h3>
+          <span class="text-xs text-[#64748B] font-mono">Porto de Galinhas</span>
         </div>
-        <span id="bor-score" class="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 text-xs font-mono font-black rounded-lg">-- / 10</span>
+        <span id="bor-score" class="px-3 py-1 bg-slate-100 border border-slate-200 text-[#0F172A] text-xs font-mono font-black rounded-lg">-- / 10</span>
       </div>
-      <div class="flex items-end gap-2 mt-4">
-        <span id="bor-hero" class="text-6xl font-black text-white leading-none">--</span>
-        <span class="text-2xl font-black text-slate-400 mb-1">m</span>
-        <span id="bor-faixa" class="text-xs font-mono text-slate-500 mb-1.5 ml-1"></span>
-      </div>
-      <p id="bor-label" class="text-sm font-bold text-slate-300 mt-2">Carregando condições...</p>
-      <p id="bor-pico" class="text-[11px] font-mono text-slate-500 mt-0.5 min-h-[1rem]"></p>
-      <div class="grid grid-cols-3 gap-3 my-4">
+      <p id="bor-label" class="text-sm font-bold text-[#0F172A] mt-3">Carregando condições...</p>
+      <p id="bor-pico" class="text-[11px] font-mono text-[#64748B] mt-0.5 min-h-[1rem]"></p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
         
-  <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
-    <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-clock text-slate-500"></i> Período</span>
-    <p id="bor-periodo" class="text-xl font-black text-white mt-1">--</p>
+  <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+    <span class="text-[10px] font-mono text-[#64748B] uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-water text-slate-400"></i> Altura</span>
+    <p id="bor-altura" class="text-xl font-black text-[#0F172A] mt-1">--</p>
   </div>
         
-  <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
-    <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-wind text-slate-500"></i> Vento</span>
-    <p id="bor-vento" class="text-xl font-black text-white mt-1">--</p>
+  <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+    <span class="text-[10px] font-mono text-[#64748B] uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-clock text-slate-400"></i> Período</span>
+    <p id="bor-periodo" class="text-xl font-black text-[#0F172A] mt-1">--</p>
   </div>
         
-  <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
-    <span class="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-arrows-up-down text-slate-500"></i> Maré</span>
-    <p id="bor-mare" class="text-xl font-black text-white mt-1">--</p>
+  <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+    <span class="text-[10px] font-mono text-[#64748B] uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-wind text-slate-400"></i> Vento</span>
+    <p id="bor-vento" class="text-xl font-black text-[#0F172A] mt-1">--</p>
+  </div>
+        
+  <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+    <span class="text-[10px] font-mono text-[#64748B] uppercase flex items-center justify-center gap-1"><i class="fa-solid fa-arrows-up-down text-slate-400"></i> Maré</span>
+    <p id="bor-mare" class="text-xl font-black text-[#0F172A] mt-1">--</p>
   </div>
       </div>
     </div>
-    <div class="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2">
-      <span id="bor-extra" class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-compass text-cyan-400 mr-1"></i> Previsão atualizada</span>
-      <a href="/dashboards/borete" class="px-4 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-lg shadow-cyan-500/20 text-center">
-        Ver previsão de 7 dias <i class="fa-solid fa-arrow-right ml-1"></i>
+    <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2">
+      <span id="bor-extra" class="text-xs text-[#64748B] font-mono"><i class="fa-solid fa-compass text-[#0EA5E9] mr-1"></i> Previsão atualizada</span>
+      <a href="/dashboards/borete" class="px-4 py-2.5 bg-[#0EA5E9] hover:bg-[#06B6D4] text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-md shadow-sky-500/10 text-center">
+        Ver 7 dias <i class="fa-solid fa-arrow-right ml-1"></i>
       </a>
     </div>
   </div>
-          <div data-pico="mais picos em breve" class="hidden lg:flex bg-slate-900/40 border border-dashed border-slate-700 rounded-3xl p-6 flex-col items-center justify-center text-center">
-            <i class="fa-solid fa-location-dot text-cyan-400 text-3xl mb-3"></i>
-            <h3 class="text-lg font-extrabold text-white">Mais picos em breve</h3>
-            <p class="text-sm text-slate-400 mt-1">Estamos mapeando novos picos do litoral de Pernambuco.</p>
+          <div data-pico="mais picos em breve" class="hidden lg:flex bg-white/60 border border-dashed border-slate-300 rounded-3xl p-6 flex-col items-center justify-center text-center">
+            <i class="fa-solid fa-location-dot text-[#0EA5E9] text-3xl mb-3"></i>
+            <h3 class="text-lg font-extrabold text-[#0F172A]">Mais picos em breve</h3>
+            <p class="text-sm text-[#64748B] mt-1">Estamos mapeando novos picos de Pernambuco.</p>
           </div>
         </div>
-        <p id="busca-vazio" class="hidden text-center text-slate-400 font-mono text-sm mb-8">Nenhum pico encontrado. Por enquanto temos Itapuama e Borete.</p>
+        <p id="busca-vazio" class="hidden text-center text-[#64748B] font-mono text-sm mb-8">Nenhum pico encontrado.</p>
 
-        <!-- MELHOR JANELA DO DIA -->
-        <div class="bg-gradient-to-r from-cyan-950/60 via-slate-900 to-slate-900 border border-cyan-500/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
+        <!-- MELHOR JANELA -->
+        <div class="bg-gradient-to-r from-sky-500 via-[#0EA5E9] to-[#06B6D4] text-white rounded-3xl p-6 shadow-md relative overflow-hidden">
           <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
             <div class="flex items-start gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-stopwatch text-cyan-400 text-xl"></i>
+              <div class="w-12 h-12 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-stopwatch text-white text-xl"></i>
               </div>
               <div>
-                <span id="janela-kicker" class="text-xs font-mono font-extrabold uppercase text-cyan-400 tracking-wider">Melhor janela de hoje em PE</span>
+                <span id="janela-kicker" class="text-xs font-mono font-extrabold uppercase text-sky-100 tracking-wider">Melhor janela de hoje em PE</span>
                 <h3 id="janela-titulo" class="text-xl md:text-2xl font-black text-white mt-0.5">Calculando a melhor janela...</h3>
-                <p id="janela-desc" class="text-sm text-slate-300 mt-1 leading-relaxed">Cruzando altura, período e vento de cada pico.</p>
+                <p id="janela-desc" class="text-sm text-sky-50 mt-1 leading-relaxed">Cruzando altura, período e vento de cada pico.</p>
               </div>
             </div>
 
-            <a href="#picos" class="shrink-0 px-5 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-wider rounded-xl transition shadow-lg shadow-cyan-500/20">
+            <a href="#picos" class="shrink-0 px-5 py-3 bg-white hover:bg-slate-50 text-[#0F172A] font-black text-xs uppercase tracking-wider rounded-xl transition shadow-md">
               Escolher Pico <i class="fa-solid fa-chevron-down ml-1"></i>
             </a>
           </div>
@@ -243,67 +234,66 @@
       </div>
     </section>
 
-    <!-- CENTRAL DE PREVISÕES -->
+    <!-- DASHBOARDS SEMANAIS -->
     <section id="picos" class="py-12 px-4 max-w-7xl mx-auto">
-      <div class="mb-8 border-b border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+      <div class="mb-8 border-b border-slate-200/80 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
         <div>
-          <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-bold">Detalhamento Completo</span>
-          <h2 class="text-3xl font-black text-white tracking-tight">Dashboards de 7 Dias</h2>
+          <span class="text-[#0EA5E9] font-mono text-xs uppercase tracking-widest font-bold">Detalhamento Completo</span>
+          <h2 class="text-3xl font-black text-[#0F172A] tracking-tight">Dashboards de 7 Dias</h2>
         </div>
-        <span class="text-xs font-mono text-slate-500">Novos picos chegando em breve</span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-  <div data-pico="Itapuama" class="bg-gradient-to-b from-slate-900 to-[#0c1322] border border-slate-800 hover:border-cyan-500/50 rounded-3xl p-8 relative overflow-hidden group shadow-2xl transition-all duration-300 flex flex-col justify-between">
-    <div class="absolute -right-6 -top-6 text-slate-800/20 text-9xl font-black select-none pointer-events-none group-hover:text-cyan-500/10 transition">ITA</div>
+  <div data-pico="Itapuama" class="bg-white border border-slate-200/80 hover:border-[#0EA5E9]/50 rounded-3xl p-8 relative overflow-hidden group shadow-sm transition-all duration-300 flex flex-col justify-between">
+    <div class="absolute -right-6 -top-6 text-slate-100 text-9xl font-black select-none pointer-events-none group-hover:text-sky-50 transition">ITA</div>
     <div class="relative">
       <div class="flex justify-between items-start mb-6">
-        <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase">Cabo de Santo Agostinho - PE</span>
+        <span class="bg-sky-50 text-[#0EA5E9] border border-sky-200/60 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase">Cabo de Santo Agostinho - PE</span>
         <span class="flex h-3 w-3 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#14B8A6] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-[#14B8A6]"></span>
         </span>
       </div>
-      <h3 class="text-3xl font-black text-white group-hover:text-cyan-400 transition">Praia de Itapuama</h3>
-      <p class="text-slate-400 text-sm mt-3 leading-relaxed">Gráfico dinâmico completo de 7 dias com altura de vaga, swell primário, rajadas de vento em nós, pressão atmosférica e tábua de marés alinhada à CHM.</p>
+      <h3 class="text-3xl font-black text-[#0F172A] group-hover:text-[#0EA5E9] transition">Praia de Itapuama</h3>
+      <p class="text-[#64748B] text-sm mt-3 leading-relaxed">Gráfico dinâmico completo de 7 dias com altura de vaga, swell primário, rajadas de vento em nós e tábua de marés da Marinha.</p>
 
-      <div class="mt-5 bg-slate-950/60 border border-slate-800 rounded-2xl p-3">
-        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Altura máxima por dia (m)</span>
+      <div class="mt-5 bg-slate-50 border border-slate-200/60 rounded-2xl p-3">
+        <span class="text-[10px] font-mono text-[#64748B] uppercase tracking-wider">Altura máxima por dia (m)</span>
         <div id="spark-ita" class="mt-2"></div>
       </div>
     </div>
 
-    <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center justify-between relative">
-      <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-chart-line text-cyan-400 mr-1"></i> Previsão 7 Dias</span>
-      <a href="/dashboards/itapuama" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-xs tracking-wider uppercase rounded-xl transition duration-300 shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+    <div class="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between relative">
+      <span class="text-xs font-mono text-[#64748B]"><i class="fa-solid fa-chart-line text-[#0EA5E9] mr-1"></i> Previsão 7 Dias</span>
+      <a href="/dashboards/itapuama" class="px-6 py-3 bg-[#0EA5E9] hover:bg-[#06B6D4] text-white font-extrabold text-xs tracking-wider uppercase rounded-xl transition shadow-md shadow-sky-500/10 flex items-center gap-2">
         Abrir Dashboard <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
   </div>
         
-  <div data-pico="Borete" class="bg-gradient-to-b from-slate-900 to-[#0c1322] border border-slate-800 hover:border-cyan-500/50 rounded-3xl p-8 relative overflow-hidden group shadow-2xl transition-all duration-300 flex flex-col justify-between">
-    <div class="absolute -right-6 -top-6 text-slate-800/20 text-9xl font-black select-none pointer-events-none group-hover:text-cyan-500/10 transition">BOR</div>
+  <div data-pico="Borete" class="bg-white border border-slate-200/80 hover:border-[#0EA5E9]/50 rounded-3xl p-8 relative overflow-hidden group shadow-sm transition-all duration-300 flex flex-col justify-between">
+    <div class="absolute -right-6 -top-6 text-slate-100 text-9xl font-black select-none pointer-events-none group-hover:text-sky-50 transition">BOR</div>
     <div class="relative">
       <div class="flex justify-between items-start mb-6">
-        <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase">Porto de Galinhas - PE</span>
+        <span class="bg-sky-50 text-[#0EA5E9] border border-sky-200/60 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase">Porto de Galinhas - PE</span>
         <span class="flex h-3 w-3 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#14B8A6] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-[#14B8A6]"></span>
         </span>
       </div>
-      <h3 class="text-3xl font-black text-white group-hover:text-cyan-400 transition">Praia do Borete</h3>
-      <p class="text-slate-400 text-sm mt-3 leading-relaxed">Monitoramento hora a hora para a bancada do Borete. Gráficos de período, altura de ondulação e rajadas de vento com alertas de maré.</p>
+      <h3 class="text-3xl font-black text-[#0F172A] group-hover:text-[#0EA5E9] transition">Praia do Borete</h3>
+      <p class="text-[#64748B] text-sm mt-3 leading-relaxed">Monitoramento hora a hora para a bancada do Borete. Gráficos de período, altura de ondulação e maré.</p>
 
-      <div class="mt-5 bg-slate-950/60 border border-slate-800 rounded-2xl p-3">
-        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Altura máxima por dia (m)</span>
+      <div class="mt-5 bg-slate-50 border border-slate-200/60 rounded-2xl p-3">
+        <span class="text-[10px] font-mono text-[#64748B] uppercase tracking-wider">Altura máxima por dia (m)</span>
         <div id="spark-bor" class="mt-2"></div>
       </div>
     </div>
 
-    <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center justify-between relative">
-      <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-chart-line text-cyan-400 mr-1"></i> Previsão 7 Dias</span>
-      <a href="/dashboards/borete" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-xs tracking-wider uppercase rounded-xl transition duration-300 shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+    <div class="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between relative">
+      <span class="text-xs font-mono text-[#64748B]"><i class="fa-solid fa-chart-line text-[#0EA5E9] mr-1"></i> Previsão 7 Dias</span>
+      <a href="/dashboards/borete" class="px-6 py-3 bg-[#0EA5E9] hover:bg-[#06B6D4] text-white font-extrabold text-xs tracking-wider uppercase rounded-xl transition shadow-md shadow-sky-500/10 flex items-center gap-2">
         Abrir Dashboard <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
@@ -311,154 +301,150 @@
       </div>
     </section>
 
-    <!-- MAPA INTERATIVO -->
-    <section class="relative border-y border-slate-800">
-      <div class="absolute top-4 left-4 z-[1000] bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-800 max-w-sm shadow-2xl">
-        <div class="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-wider mb-1">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> Mapeamento Litoral PE
+    <!-- MAPA -->
+    <section class="relative border-y border-slate-200/80">
+      <div class="absolute top-4 left-4 z-[1000] bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200 max-w-sm shadow-md">
+        <div class="flex items-center gap-2 text-[#0EA5E9] font-bold text-xs uppercase tracking-wider mb-1">
+          <span class="w-2 h-2 rounded-full bg-[#0EA5E9] animate-ping"></span> Mapeamento PE
         </div>
-        <h2 class="text-lg font-extrabold text-white leading-tight">Localização dos Picos</h2>
-        <p class="text-xs text-slate-400 mt-1">Toque nos marcadores para abrir a previsão semanal.</p>
+        <h2 class="text-lg font-extrabold text-[#0F172A] leading-tight">Localização dos Picos</h2>
       </div>
       <div id="map" class="h-[340px] w-full z-0"></div>
     </section>
 
-    <!-- COMUNIDADE PE -->
+    <!-- COMUNIDADE -->
     <section id="comunidade" class="py-12 px-4 max-w-7xl mx-auto">
-      <div class="mb-6 border-b border-slate-800 pb-4">
-        <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-bold">Comunidade PE</span>
-        <h2 class="text-3xl font-black text-white tracking-tight">Surf em Pernambuco</h2>
+      <div class="mb-6 border-b border-slate-200/80 pb-4">
+        <span class="text-[#0EA5E9] font-mono text-xs uppercase tracking-widest font-bold">Comunidade PE</span>
+        <h2 class="text-3xl font-black text-[#0F172A] tracking-tight">Surf em Pernambuco</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="col-span-full bg-slate-900/60 border border-dashed border-slate-700 rounded-2xl p-6 text-center">
-       <i class="fa-solid fa-newspaper text-cyan-400 text-2xl mb-2"></i>
-       <p class="text-sm text-slate-300 font-semibold">Em breve: campeonatos, limpeza de praia e novidades do surf de Pernambuco.</p>
-       <a href="https://wa.me/55XXXXXXXXXXX?text=Quero%20receber%20alerta%20quando%20Borete%20ou%20Itapuama%20estiver%20bom" target="_blank" rel="noopener" class="inline-block mt-3 text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 hover:text-cyan-300">Tem uma novidade? Manda pra gente →</a>
+        <div class="col-span-full bg-white border border-dashed border-slate-300 rounded-2xl p-6 text-center">
+       <i class="fa-solid fa-newspaper text-[#0EA5E9] text-2xl mb-2"></i>
+       <p class="text-sm text-[#0F172A] font-semibold">Em breve: campeonatos, limpeza de praia e novidades do surf de Pernambuco.</p>
+       <a href="https://wa.me/5581999999999?text=Quero%20receber%20alerta%20quando%20Borete%20ou%20Itapuama%20estiver%20bom" target="_blank" rel="noopener" class="inline-block mt-3 text-xs font-mono font-bold uppercase tracking-wider text-[#0EA5E9] hover:underline">Tem uma novidade? Manda pra gente →</a>
      </div>
       </div>
     </section>
 
-    <!-- COMO LER A PREVISÃO -->
+    <!-- DICAS -->
     <section id="como-ler" class="pb-12 px-4 max-w-7xl mx-auto">
       <div class="mb-6">
-        <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-bold">Dicas</span>
-        <h2 class="text-2xl font-black text-white tracking-tight">Como ler a previsão</h2>
+        <span class="text-[#0EA5E9] font-mono text-xs uppercase tracking-widest font-bold">Dicas</span>
+        <h2 class="text-2xl font-black text-[#0F172A] tracking-tight">Como ler a previsão</h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
-  <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5">
-    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-3">
-      <i class="fa-solid fa-clock text-cyan-400"></i>
+  <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm">
+    <div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-3">
+      <i class="fa-solid fa-clock text-[#0EA5E9]"></i>
     </div>
-    <h3 class="font-extrabold text-white">Período manda</h3>
-    <p class="text-sm text-slate-400 mt-1.5 leading-relaxed">Quanto maior o período (em segundos), mais força e organização tem a onda. Periodão de 11s ou mais costuma dar série boa.</p>
+    <h3 class="font-extrabold text-[#0F172A]">Período manda</h3>
+    <p class="text-sm text-[#64748B] mt-1.5 leading-relaxed">Quanto maior o período (em segundos), mais força e organização tem a onda.</p>
   </div>
         
-  <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5">
-    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-3">
-      <i class="fa-solid fa-water text-cyan-400"></i>
+  <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm">
+    <div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-3">
+      <i class="fa-solid fa-water text-[#0EA5E9]"></i>
     </div>
-    <h3 class="font-extrabold text-white">Altura não é tudo</h3>
-    <p class="text-sm text-slate-400 mt-1.5 leading-relaxed">Onda alta com período curto vem bagunçada. Uma onda menor com bom período muitas vezes surfa melhor.</p>
+    <h3 class="font-extrabold text-[#0F172A]">Altura não é tudo</h3>
+    <p class="text-sm text-[#64748B] mt-1.5 leading-relaxed">Onda alta com período curto vem bagunçada. Onda menor com período longo surfa melhor.</p>
   </div>
         
-  <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5">
-    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-3">
-      <i class="fa-solid fa-wind text-cyan-400"></i>
+  <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm">
+    <div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-3">
+      <i class="fa-solid fa-wind text-[#0EA5E9]"></i>
     </div>
-    <h3 class="font-extrabold text-white">Olhe o vento</h3>
-    <p class="text-sm text-slate-400 mt-1.5 leading-relaxed">Vento fraco ou vindo da terra (terral) deixa a face lisa. Vento forte do mar deixa tudo mexido.</p>
+    <h3 class="font-extrabold text-[#0F172A]">Olhe o vento</h3>
+    <p class="text-sm text-[#64748B] mt-1.5 leading-relaxed">Vento terral deixa a face lisa. Vento forte do mar deixa mexido.</p>
   </div>
         
-  <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5">
-    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-3">
-      <i class="fa-solid fa-arrows-up-down text-cyan-400"></i>
+  <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm">
+    <div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-3">
+      <i class="fa-solid fa-arrows-up-down text-[#0EA5E9]"></i>
     </div>
-    <h3 class="font-extrabold text-white">Maré importa</h3>
-    <p class="text-sm text-slate-400 mt-1.5 leading-relaxed">Cada pico funciona melhor em uma fase da maré. Combine a maré com a janela do dia antes de sair.</p>
+    <h3 class="font-extrabold text-[#0F172A]">Maré importa</h3>
+    <p class="text-sm text-[#64748B] mt-1.5 leading-relaxed">Cada bancada responde a um nível de água. Confira a tábua de marés da Marinha.</p>
   </div>
       </div>
     </section>
 
-    <!-- RANKING WSL -->
+    <!-- WSL -->
     <section id="wsl" class="pb-12 px-4 max-w-7xl mx-auto">
-      <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 md:p-8 backdrop-blur shadow-2xl">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-800/80 pb-4">
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 shadow-sm">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-100 pb-4">
           <div>
-            <span class="text-amber-400 font-mono text-[10px] uppercase tracking-widest font-bold flex items-center gap-1.5">
+            <span class="text-[#F59E0B] font-mono text-[10px] uppercase tracking-widest font-bold flex items-center gap-1.5">
               <i class="fa-solid fa-trophy"></i> World Surf League
             </span>
-            <h2 class="text-2xl font-black text-white">Men's Championship Tour</h2>
+            <h2 class="text-2xl font-black text-[#0F172A]">Men's Championship Tour</h2>
           </div>
-          <span class="px-3 py-1 bg-slate-800 text-slate-300 font-mono text-xs rounded-full border border-slate-700 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Ranking Atualizado
-          </span>
         </div>
 
         <div id="wsl-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           
-    <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-amber-500/40 transition">
+    <div class="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:border-[#0EA5E9]/40 shadow-sm transition">
       <div class="flex justify-between items-center mb-3">
-        <span class="w-8 h-8 rounded-lg bg-amber-400 text-black flex items-center justify-center font-black text-sm">
+        <span class="w-8 h-8 rounded-lg bg-[#F59E0B] text-white flex items-center justify-center font-black text-sm">
           #1
         </span>
-        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">WSL Rank</span>
+        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">WSL Rank</span>
       </div>
       <div>
-        <h4 class="font-extrabold text-white text-base leading-tight">Yago Dora</h4>
-        <p class="text-xs text-amber-400 font-mono font-bold mt-1">7,800 <span class="text-[10px] text-slate-500">pts</span></p>
+        <h4 class="font-extrabold text-[#0F172A] text-base leading-tight">Yago Dora</h4>
+        <p class="text-xs text-[#0EA5E9] font-mono font-bold mt-1">7,800 <span class="text-[10px] text-slate-400">pts</span></p>
       </div>
     </div>
   
-    <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-amber-500/40 transition">
+    <div class="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:border-[#0EA5E9]/40 shadow-sm transition">
       <div class="flex justify-between items-center mb-3">
-        <span class="w-8 h-8 rounded-lg bg-slate-800 text-slate-300 flex items-center justify-center font-black text-sm">
+        <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center font-black text-sm">
           #2
         </span>
-        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">WSL Rank</span>
+        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">WSL Rank</span>
       </div>
       <div>
-        <h4 class="font-extrabold text-white text-base leading-tight">Gabriel Medina</h4>
-        <p class="text-xs text-amber-400 font-mono font-bold mt-1">6,085 <span class="text-[10px] text-slate-500">pts</span></p>
+        <h4 class="font-extrabold text-[#0F172A] text-base leading-tight">Gabriel Medina</h4>
+        <p class="text-xs text-[#0EA5E9] font-mono font-bold mt-1">6,085 <span class="text-[10px] text-slate-400">pts</span></p>
       </div>
     </div>
   
-    <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-amber-500/40 transition">
+    <div class="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:border-[#0EA5E9]/40 shadow-sm transition">
       <div class="flex justify-between items-center mb-3">
-        <span class="w-8 h-8 rounded-lg bg-slate-800 text-slate-300 flex items-center justify-center font-black text-sm">
+        <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center font-black text-sm">
           #3
         </span>
-        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">WSL Rank</span>
+        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">WSL Rank</span>
       </div>
       <div>
-        <h4 class="font-extrabold text-white text-base leading-tight">Italo Ferreira</h4>
-        <p class="text-xs text-amber-400 font-mono font-bold mt-1">3,320 <span class="text-[10px] text-slate-500">pts</span></p>
+        <h4 class="font-extrabold text-[#0F172A] text-base leading-tight">Italo Ferreira</h4>
+        <p class="text-xs text-[#0EA5E9] font-mono font-bold mt-1">3,320 <span class="text-[10px] text-slate-400">pts</span></p>
       </div>
     </div>
   
-    <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-amber-500/40 transition">
+    <div class="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:border-[#0EA5E9]/40 shadow-sm transition">
       <div class="flex justify-between items-center mb-3">
-        <span class="w-8 h-8 rounded-lg bg-slate-800 text-slate-300 flex items-center justify-center font-black text-sm">
+        <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center font-black text-sm">
           #4
         </span>
-        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">WSL Rank</span>
+        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">WSL Rank</span>
       </div>
       <div>
-        <h4 class="font-extrabold text-white text-base leading-tight">Griffin Colapinto</h4>
-        <p class="text-xs text-amber-400 font-mono font-bold mt-1">6,085 <span class="text-[10px] text-slate-500">pts</span></p>
+        <h4 class="font-extrabold text-[#0F172A] text-base leading-tight">Griffin Colapinto</h4>
+        <p class="text-xs text-[#0EA5E9] font-mono font-bold mt-1">6,085 <span class="text-[10px] text-slate-400">pts</span></p>
       </div>
     </div>
   
-    <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-amber-500/40 transition">
+    <div class="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:border-[#0EA5E9]/40 shadow-sm transition">
       <div class="flex justify-between items-center mb-3">
-        <span class="w-8 h-8 rounded-lg bg-slate-800 text-slate-300 flex items-center justify-center font-black text-sm">
+        <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center font-black text-sm">
           #5
         </span>
-        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">WSL Rank</span>
+        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">WSL Rank</span>
       </div>
       <div>
-        <h4 class="font-extrabold text-white text-base leading-tight">Miguel Pupo</h4>
-        <p class="text-xs text-amber-400 font-mono font-bold mt-1">10,000 <span class="text-[10px] text-slate-500">pts</span></p>
+        <h4 class="font-extrabold text-[#0F172A] text-base leading-tight">Miguel Pupo</h4>
+        <p class="text-xs text-[#0EA5E9] font-mono font-bold mt-1">10,000 <span class="text-[10px] text-slate-400">pts</span></p>
       </div>
     </div>
   
@@ -466,50 +452,49 @@
       </div>
     </section>
 
-    <!-- CTA WHATSAPP -->
+    <!-- WHATSAPP CTA -->
     <section class="px-4 max-w-7xl mx-auto">
-      <div class="bg-gradient-to-r from-emerald-950/70 via-slate-900 to-slate-900 border border-emerald-500/30 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+      <div class="bg-emerald-500 text-white rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 shadow-md">
         <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center shrink-0">
-            <i class="fa-brands fa-whatsapp text-emerald-400 text-2xl"></i>
+          <div class="w-12 h-12 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center shrink-0">
+            <i class="fa-brands fa-whatsapp text-white text-2xl"></i>
           </div>
           <div>
             <h3 class="text-xl font-black text-white">Receba alerta no WhatsApp</h3>
-            <p class="text-sm text-slate-300 mt-1">Avisamos quando Borete ou Itapuama estiver bom, sem você precisar abrir o site.</p>
+            <p class="text-sm text-emerald-50 mt-1">Avisamos quando Borete ou Itapuama estiver bom.</p>
           </div>
         </div>
-        <a href="https://wa.me/55XXXXXXXXXXX?text=Quero%20receber%20alerta%20quando%20Borete%20ou%20Itapuama%20estiver%20bom" target="_blank" rel="noopener" class="shrink-0 px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs uppercase tracking-wider rounded-xl transition shadow-lg shadow-emerald-500/20">
+        <a href="https://wa.me/5581999999999?text=Quero%20receber%20alerta%20quando%20Borete%20ou%20Itapuama%20estiver%20bom" target="_blank" rel="noopener" class="shrink-0 px-6 py-3 bg-white hover:bg-slate-50 text-[#0F172A] font-black text-xs uppercase tracking-wider rounded-xl transition shadow-md">
           Quero receber alertas
         </a>
       </div>
     </section>
   </div>
 
-  <!-- RODAPÉ COMPLETO -->
-  <footer class="border-t border-slate-800/80 bg-[#060910] py-8 px-4 mt-12">
+  <!-- RODAPÉ -->
+  <footer class="border-t border-slate-200/80 bg-white py-8 px-4 mt-12">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2 mb-6 text-xs font-mono uppercase tracking-wider">
-        <a href="/mares" class="text-slate-400 hover:text-cyan-400 transition">Tábua de marés</a>
-        <a href="#como-ler" class="text-slate-400 hover:text-cyan-400 transition">Como ler a previsão</a>
-        <a href="#comunidade" class="text-slate-400 hover:text-cyan-400 transition">Comunidade</a>
-        <a href="/sobre" class="text-slate-400 hover:text-cyan-400 transition">Sobre nós</a>
+        <a href="/mares" class="text-[#64748B] hover:text-[#0EA5E9] transition">Tábua de marés</a>
+        <a href="#como-ler" class="text-[#64748B] hover:text-[#0EA5E9] transition">Como ler a previsão</a>
+        <a href="/sobre" class="text-[#64748B] hover:text-[#0EA5E9] transition">Sobre nós</a>
       </div>
 
       <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
         <div class="w-full md:w-1/3 text-center md:text-left">
-          <p class="text-xs text-slate-400 font-medium">
+          <p class="text-xs text-[#64748B] font-medium">
             © 2026 Previsão de Surf PE.<br class="hidden lg:block"> Todos os direitos reservados.
           </p>
         </div>
 
         <div class="w-full md:w-1/3 flex justify-center">
           <div class="w-[100px] h-[54px] overflow-hidden flex justify-center items-center opacity-80 hover:opacity-100 transition duration-300">
-            <script type='text/javascript' id='mapmyvisitors' src='https://mapmyvisitors.com/map.js?cl=ffffff&w=100&t=tt&d=GzUhVZWUDAquewuQBXVou2Hd3Zot__i6S60nbMc5Thg'></script>
+            <script type='text/javascript' id='mapmyvisitors' src='https://mapmyvisitors.com/map.js?cl=0f172a&w=100&t=tt&d=GzUhVZWUDAquewuQBXVou2Hd3Zot__i6S60nbMc5Thg'></script>
           </div>
         </div>
 
         <div class="w-full md:w-1/3 flex items-center justify-center md:justify-end gap-3">
-          <span class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-mono font-semibold text-right">Desenvolvido por</span>
+          <span class="text-[10px] sm:text-xs uppercase tracking-widest text-[#64748B] font-mono font-semibold text-right">Desenvolvido por</span>
           <a href="https://vextor.com.br" target="_blank" class="hover:opacity-90 transition duration-300 shrink-0">
             <img
               src="https://res.cloudinary.com/dzw4kv0ue/image/upload/v1780397077/logo_new_p6ifqr.png"
@@ -522,17 +507,16 @@
     </div>
   </footer>
 
-  <!-- DADOS DINÂMICOS & LÓGICA (sem template literal e sem barra invertida aqui dentro) -->
+  <!-- SCRIPT FRONTEND INTERATIVO -->
   <script>
-    var dadosItapuama = [{"data":"2026-11-10","horas":[{"hora":8,"altura_onda":1.01,"periodo_swell":8.3,"velocidade_vento":8.3,"energia_swell":4.1,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.02,"periodo_swell":8.3,"velocidade_vento":9.3,"energia_swell":4.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.04,"periodo_swell":7,"velocidade_vento":10,"energia_swell":3.7,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.06,"periodo_swell":5.7,"velocidade_vento":10.7,"energia_swell":3.1,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.08,"periodo_swell":4.4,"velocidade_vento":11.3,"energia_swell":2.5,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.11,"periodo_swell":4.6,"velocidade_vento":11.2,"energia_swell":2.8,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.15,"periodo_swell":4.8,"velocidade_vento":11,"energia_swell":3.1,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.18,"periodo_swell":5,"velocidade_vento":10.8,"energia_swell":3.4,"direcao_swell":"E","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.21,"periodo_swell":4.9,"velocidade_vento":10.3,"energia_swell":3.5,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.25,"periodo_swell":4.8,"velocidade_vento":9.7,"energia_swell":3.6,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.29,"periodo_swell":4.7,"velocidade_vento":9.1,"energia_swell":3.8,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-11","horas":[{"hora":4,"altura_onda":1.45,"periodo_swell":5,"velocidade_vento":6.5,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.45,"periodo_swell":5,"velocidade_vento":6.8,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.44,"periodo_swell":5.1,"velocidade_vento":7.1,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.48,"periodo_swell":5.1,"velocidade_vento":7.9,"energia_swell":5.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.53,"periodo_swell":5.1,"velocidade_vento":8.6,"energia_swell":5.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.57,"periodo_swell":5.1,"velocidade_vento":9.4,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.59,"periodo_swell":5.1,"velocidade_vento":9.9,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.62,"periodo_swell":5.2,"velocidade_vento":10.5,"energia_swell":6.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.65,"periodo_swell":5.2,"velocidade_vento":11,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.65,"periodo_swell":5.2,"velocidade_vento":10.6,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.65,"periodo_swell":5.2,"velocidade_vento":10.1,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.65,"periodo_swell":5.2,"velocidade_vento":9.7,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.64,"periodo_swell":5.2,"velocidade_vento":8.9,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.63,"periodo_swell":5.2,"velocidade_vento":8.2,"energia_swell":6.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.63,"periodo_swell":5.2,"velocidade_vento":7.5,"energia_swell":6.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-12","horas":[{"hora":4,"altura_onda":1.74,"periodo_swell":8.9,"velocidade_vento":7.5,"energia_swell":13.3,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.75,"periodo_swell":8.9,"velocidade_vento":7.5,"energia_swell":13.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.75,"periodo_swell":8.9,"velocidade_vento":7.5,"energia_swell":13.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.76,"periodo_swell":8.8,"velocidade_vento":8.3,"energia_swell":13.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.76,"periodo_swell":8.8,"velocidade_vento":9,"energia_swell":13.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.77,"periodo_swell":8.8,"velocidade_vento":9.8,"energia_swell":13.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.76,"periodo_swell":8.8,"velocidade_vento":9.8,"energia_swell":13.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.75,"periodo_swell":8.7,"velocidade_vento":9.8,"energia_swell":13.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.74,"periodo_swell":8.7,"velocidade_vento":9.7,"energia_swell":12.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.73,"periodo_swell":8.6,"velocidade_vento":9.9,"energia_swell":12.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.73,"periodo_swell":8.6,"velocidade_vento":10,"energia_swell":12.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.72,"periodo_swell":8.5,"velocidade_vento":10.1,"energia_swell":12.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.71,"periodo_swell":8.3,"velocidade_vento":9.2,"energia_swell":11.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.7,"periodo_swell":8.1,"velocidade_vento":8.3,"energia_swell":11.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.69,"periodo_swell":7.9,"velocidade_vento":7.3,"energia_swell":11.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-13","horas":[{"hora":4,"altura_onda":1.7,"periodo_swell":5.3,"velocidade_vento":3.1,"energia_swell":7.6,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.69,"periodo_swell":5.3,"velocidade_vento":2.9,"energia_swell":7.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.68,"periodo_swell":5.3,"velocidade_vento":2.7,"energia_swell":7.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.65,"periodo_swell":5.3,"velocidade_vento":4.2,"energia_swell":7.1,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.62,"periodo_swell":5.3,"velocidade_vento":5.6,"energia_swell":6.8,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.6,"periodo_swell":5.3,"velocidade_vento":7,"energia_swell":6.7,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.58,"periodo_swell":5.4,"velocidade_vento":7.2,"energia_swell":6.6,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.56,"periodo_swell":5.4,"velocidade_vento":7.4,"energia_swell":6.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.54,"periodo_swell":5.5,"velocidade_vento":7.5,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.53,"periodo_swell":5.5,"velocidade_vento":8,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.51,"periodo_swell":5.5,"velocidade_vento":8.4,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.5,"periodo_swell":5.6,"velocidade_vento":8.8,"energia_swell":6.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.5,"periodo_swell":5.6,"velocidade_vento":8,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.5,"periodo_swell":5.7,"velocidade_vento":7.2,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.5,"periodo_swell":5.7,"velocidade_vento":6.4,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-14","horas":[{"hora":4,"altura_onda":1.5,"periodo_swell":5.4,"velocidade_vento":1.7,"energia_swell":5.9,"direcao_swell":"ESE","direcao_vento":"SSE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.49,"periodo_swell":5.4,"velocidade_vento":2.4,"energia_swell":5.8,"direcao_swell":"ESE","direcao_vento":"SSE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.49,"periodo_swell":5.3,"velocidade_vento":3.1,"energia_swell":5.8,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.48,"periodo_swell":5.3,"velocidade_vento":4.6,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.48,"periodo_swell":5.3,"velocidade_vento":6.1,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.47,"periodo_swell":5.3,"velocidade_vento":7.7,"energia_swell":5.6,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.46,"periodo_swell":5.3,"velocidade_vento":8.2,"energia_swell":5.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.45,"periodo_swell":5.3,"velocidade_vento":8.7,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.44,"periodo_swell":5.3,"velocidade_vento":9.3,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.44,"periodo_swell":5.3,"velocidade_vento":9.5,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.43,"periodo_swell":5.4,"velocidade_vento":9.8,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.43,"periodo_swell":5.4,"velocidade_vento":10,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.42,"periodo_swell":5.4,"velocidade_vento":8.8,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.41,"periodo_swell":5.4,"velocidade_vento":7.6,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.4,"periodo_swell":5.4,"velocidade_vento":6.4,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-15","horas":[{"hora":4,"altura_onda":1.33,"periodo_swell":5.4,"velocidade_vento":4.4,"energia_swell":4.7,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.33,"periodo_swell":5.5,"velocidade_vento":4.9,"energia_swell":4.8,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.33,"periodo_swell":5.6,"velocidade_vento":5.4,"energia_swell":4.9,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.33,"periodo_swell":5.5,"velocidade_vento":6.6,"energia_swell":4.7,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.32,"periodo_swell":5.4,"velocidade_vento":7.9,"energia_swell":4.6,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.32,"periodo_swell":5.2,"velocidade_vento":9.1,"energia_swell":4.5,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.32,"periodo_swell":5.4,"velocidade_vento":9.5,"energia_swell":4.6,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.32,"periodo_swell":5.6,"velocidade_vento":9.9,"energia_swell":4.7,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.32,"periodo_swell":5.7,"velocidade_vento":10.3,"energia_swell":4.9,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.32,"periodo_swell":5.8,"velocidade_vento":10.6,"energia_swell":4.9,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.33,"periodo_swell":5.8,"velocidade_vento":10.9,"energia_swell":5,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.33,"periodo_swell":5.8,"velocidade_vento":11.2,"energia_swell":5,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.34,"periodo_swell":5.8,"velocidade_vento":10,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.34,"periodo_swell":5.8,"velocidade_vento":8.8,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.35,"periodo_swell":5.8,"velocidade_vento":7.6,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-16","horas":[{"hora":4,"altura_onda":1.42,"periodo_swell":5.4,"velocidade_vento":5.6,"energia_swell":5.3,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.43,"periodo_swell":5.3,"velocidade_vento":5.6,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.43,"periodo_swell":5.3,"velocidade_vento":5.6,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.42,"periodo_swell":5.3,"velocidade_vento":6.9,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.41,"periodo_swell":5.3,"velocidade_vento":8.2,"energia_swell":5.1,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.4,"periodo_swell":5.2,"velocidade_vento":9.6,"energia_swell":5,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.39,"periodo_swell":5.3,"velocidade_vento":10.1,"energia_swell":5,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.38,"periodo_swell":5.3,"velocidade_vento":10.7,"energia_swell":5,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.37,"periodo_swell":5.3,"velocidade_vento":11.2,"energia_swell":4.9,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.37,"periodo_swell":5.4,"velocidade_vento":11.5,"energia_swell":5,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.37,"periodo_swell":5.5,"velocidade_vento":11.9,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.37,"periodo_swell":5.6,"velocidade_vento":12.3,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.38,"periodo_swell":5.6,"velocidade_vento":11.4,"energia_swell":5.2,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.38,"periodo_swell":5.6,"velocidade_vento":10.5,"energia_swell":5.3,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.39,"periodo_swell":5.7,"velocidade_vento":9.6,"energia_swell":5.4,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null}]}];
-    var dadosBorete = [{"data":"2026-11-10","horas":[{"hora":8,"altura_onda":0.91,"periodo_swell":6.6,"velocidade_vento":9.7,"energia_swell":2.7,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":0.93,"periodo_swell":6.6,"velocidade_vento":10.5,"energia_swell":2.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":0.95,"periodo_swell":6.6,"velocidade_vento":11.1,"energia_swell":2.9,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":0.97,"periodo_swell":6.6,"velocidade_vento":11.7,"energia_swell":3,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":0.99,"periodo_swell":6.6,"velocidade_vento":12.2,"energia_swell":3.2,"direcao_swell":"E","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.01,"periodo_swell":6.5,"velocidade_vento":12.2,"energia_swell":3.3,"direcao_swell":"E","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.03,"periodo_swell":6.4,"velocidade_vento":12.2,"energia_swell":3.3,"direcao_swell":"E","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.05,"periodo_swell":6.4,"velocidade_vento":12.2,"energia_swell":3.4,"direcao_swell":"E","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.09,"periodo_swell":6.3,"velocidade_vento":11.9,"energia_swell":3.7,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.13,"periodo_swell":6.2,"velocidade_vento":11.5,"energia_swell":3.9,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.18,"periodo_swell":6.1,"velocidade_vento":11.2,"energia_swell":4.2,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-11","horas":[{"hora":4,"altura_onda":1.35,"periodo_swell":6.2,"velocidade_vento":9,"energia_swell":5.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.35,"periodo_swell":6.3,"velocidade_vento":9.1,"energia_swell":5.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.35,"periodo_swell":6.4,"velocidade_vento":9.2,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.39,"periodo_swell":6.4,"velocidade_vento":9.9,"energia_swell":6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.43,"periodo_swell":6.4,"velocidade_vento":10.7,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.47,"periodo_swell":6.5,"velocidade_vento":11.4,"energia_swell":6.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.5,"periodo_swell":6.5,"velocidade_vento":11.3,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.54,"periodo_swell":6.6,"velocidade_vento":11.2,"energia_swell":7.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.57,"periodo_swell":6.7,"velocidade_vento":11.1,"energia_swell":8.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.57,"periodo_swell":6.8,"velocidade_vento":10.9,"energia_swell":8.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.57,"periodo_swell":6.9,"velocidade_vento":10.8,"energia_swell":8.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.57,"periodo_swell":7,"velocidade_vento":10.7,"energia_swell":8.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.55,"periodo_swell":7,"velocidade_vento":10.1,"energia_swell":8.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.54,"periodo_swell":7,"velocidade_vento":9.6,"energia_swell":8.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.52,"periodo_swell":7,"velocidade_vento":9.1,"energia_swell":7.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-12","horas":[{"hora":4,"altura_onda":1.59,"periodo_swell":7.1,"velocidade_vento":10.2,"energia_swell":8.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.6,"periodo_swell":7.2,"velocidade_vento":10.6,"energia_swell":9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.61,"periodo_swell":7.2,"velocidade_vento":11,"energia_swell":9.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.61,"periodo_swell":7.2,"velocidade_vento":10.8,"energia_swell":9.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.61,"periodo_swell":7.3,"velocidade_vento":10.6,"energia_swell":9.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.61,"periodo_swell":7.3,"velocidade_vento":10.4,"energia_swell":9.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.6,"periodo_swell":7.4,"velocidade_vento":10.4,"energia_swell":9.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.58,"periodo_swell":7.4,"velocidade_vento":10.4,"energia_swell":9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.57,"periodo_swell":7.4,"velocidade_vento":10.4,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.56,"periodo_swell":7.5,"velocidade_vento":10.6,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.56,"periodo_swell":7.5,"velocidade_vento":10.9,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.55,"periodo_swell":7.5,"velocidade_vento":11.1,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.54,"periodo_swell":7.5,"velocidade_vento":10.3,"energia_swell":8.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.53,"periodo_swell":7.5,"velocidade_vento":9.4,"energia_swell":8.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.52,"periodo_swell":7.5,"velocidade_vento":8.5,"energia_swell":8.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-13","horas":[{"hora":4,"altura_onda":1.6,"periodo_swell":7.4,"velocidade_vento":6.8,"energia_swell":9.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.58,"periodo_swell":7.3,"velocidade_vento":6.3,"energia_swell":9,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.57,"periodo_swell":7.3,"velocidade_vento":5.7,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.55,"periodo_swell":7.3,"velocidade_vento":6.5,"energia_swell":8.7,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.54,"periodo_swell":7.3,"velocidade_vento":7.3,"energia_swell":8.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.52,"periodo_swell":7.4,"velocidade_vento":8.1,"energia_swell":8.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.49,"periodo_swell":7.4,"velocidade_vento":7.9,"energia_swell":8,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.47,"periodo_swell":7.4,"velocidade_vento":7.7,"energia_swell":7.8,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.44,"periodo_swell":7.4,"velocidade_vento":7.4,"energia_swell":7.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.43,"periodo_swell":7.4,"velocidade_vento":7.9,"energia_swell":7.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.41,"periodo_swell":7.4,"velocidade_vento":8.5,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.4,"periodo_swell":7.5,"velocidade_vento":9,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.4,"periodo_swell":7.5,"velocidade_vento":8.7,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.4,"periodo_swell":7.5,"velocidade_vento":8.4,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.4,"periodo_swell":7.5,"velocidade_vento":8.1,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-14","horas":[{"hora":4,"altura_onda":1.35,"periodo_swell":7.4,"velocidade_vento":4.5,"energia_swell":6.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.34,"periodo_swell":7.4,"velocidade_vento":5,"energia_swell":6.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.33,"periodo_swell":7.4,"velocidade_vento":5.5,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.32,"periodo_swell":7.4,"velocidade_vento":6.5,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.31,"periodo_swell":7.4,"velocidade_vento":7.5,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":8.5,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":8.9,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":9.3,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":9.7,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":10.2,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":10.6,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":11.1,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":10.3,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.29,"periodo_swell":7.5,"velocidade_vento":9.6,"energia_swell":6.1,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.29,"periodo_swell":7.5,"velocidade_vento":8.8,"energia_swell":6.1,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-15","horas":[{"hora":4,"altura_onda":1.22,"periodo_swell":7.2,"velocidade_vento":5.6,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.22,"periodo_swell":7.2,"velocidade_vento":6.7,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.22,"periodo_swell":7.2,"velocidade_vento":7.9,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.23,"periodo_swell":7.3,"velocidade_vento":8.7,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.23,"periodo_swell":7.3,"velocidade_vento":9.5,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.24,"periodo_swell":7.3,"velocidade_vento":10.3,"energia_swell":5.5,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.25,"periodo_swell":7.3,"velocidade_vento":10.9,"energia_swell":5.6,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.26,"periodo_swell":7.3,"velocidade_vento":11.5,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.27,"periodo_swell":7.3,"velocidade_vento":12.1,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.28,"periodo_swell":7.3,"velocidade_vento":12.4,"energia_swell":5.8,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.29,"periodo_swell":7.2,"velocidade_vento":12.7,"energia_swell":5.9,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.3,"periodo_swell":7.2,"velocidade_vento":13,"energia_swell":6,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.32,"periodo_swell":7.2,"velocidade_vento":12.4,"energia_swell":6.1,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.33,"periodo_swell":7.1,"velocidade_vento":11.7,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.35,"periodo_swell":7.1,"velocidade_vento":11,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null}]},{"data":"2026-11-16","horas":[{"hora":4,"altura_onda":1.13,"periodo_swell":6.7,"velocidade_vento":9,"energia_swell":4.2,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":5,"altura_onda":1.12,"periodo_swell":6.6,"velocidade_vento":8.8,"energia_swell":4.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":6,"altura_onda":1.12,"periodo_swell":6.6,"velocidade_vento":8.6,"energia_swell":4.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":7,"altura_onda":1.13,"periodo_swell":6.7,"velocidade_vento":9.8,"energia_swell":4.2,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":8,"altura_onda":1.13,"periodo_swell":6.7,"velocidade_vento":10.9,"energia_swell":4.2,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":9,"altura_onda":1.14,"periodo_swell":6.8,"velocidade_vento":12,"energia_swell":4.3,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":10,"altura_onda":1.15,"periodo_swell":6.8,"velocidade_vento":12.3,"energia_swell":4.4,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":11,"altura_onda":1.17,"periodo_swell":6.8,"velocidade_vento":12.6,"energia_swell":4.5,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":12,"altura_onda":1.18,"periodo_swell":6.8,"velocidade_vento":12.9,"energia_swell":4.6,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":13,"altura_onda":1.19,"periodo_swell":6.8,"velocidade_vento":13.4,"energia_swell":4.7,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":14,"altura_onda":1.21,"periodo_swell":6.9,"velocidade_vento":13.9,"energia_swell":4.9,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":15,"altura_onda":1.22,"periodo_swell":6.9,"velocidade_vento":14.4,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":null,"mare_fase":null},{"hora":16,"altura_onda":1.24,"periodo_swell":6.8,"velocidade_vento":14.1,"energia_swell":5.2,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":17,"altura_onda":1.25,"periodo_swell":6.8,"velocidade_vento":13.8,"energia_swell":5.2,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null},{"hora":18,"altura_onda":1.27,"periodo_swell":6.7,"velocidade_vento":13.6,"energia_swell":5.3,"direcao_swell":"E","direcao_vento":"NE","mare_altura":null,"mare_fase":null}]}];
+    var dadosItapuama = [{"data":"2026-11-10","horas":[{"hora":8,"altura_onda":1.01,"periodo_swell":8.3,"velocidade_vento":8.3,"energia_swell":4.1,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":0.89,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.02,"periodo_swell":8.3,"velocidade_vento":9.3,"energia_swell":4.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.55,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.04,"periodo_swell":7,"velocidade_vento":10,"energia_swell":3.7,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":0.4,"mare_fase":"estofa"},{"hora":11,"altura_onda":1.06,"periodo_swell":5.7,"velocidade_vento":10.7,"energia_swell":3.1,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":0.48,"mare_fase":"enchendo"},{"hora":12,"altura_onda":1.08,"periodo_swell":4.4,"velocidade_vento":11.3,"energia_swell":2.5,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":0.75,"mare_fase":"enchendo"},{"hora":13,"altura_onda":1.11,"periodo_swell":4.6,"velocidade_vento":11.2,"energia_swell":2.8,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":1.15,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.15,"periodo_swell":4.8,"velocidade_vento":11,"energia_swell":3.1,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":1.57,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.18,"periodo_swell":5,"velocidade_vento":10.8,"energia_swell":3.4,"direcao_swell":"E","direcao_vento":"SE","mare_altura":1.91,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.21,"periodo_swell":4.9,"velocidade_vento":10.3,"energia_swell":3.5,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":2.09,"mare_fase":"estofa"},{"hora":17,"altura_onda":1.25,"periodo_swell":4.8,"velocidade_vento":9.7,"energia_swell":3.6,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":2.05,"mare_fase":"vazando"},{"hora":18,"altura_onda":1.29,"periodo_swell":4.7,"velocidade_vento":9.1,"energia_swell":3.8,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":1.8,"mare_fase":"vazando"}]},{"data":"2026-11-11","horas":[{"hora":4,"altura_onda":1.45,"periodo_swell":5,"velocidade_vento":6.5,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":1.93,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.45,"periodo_swell":5,"velocidade_vento":6.8,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.99,"mare_fase":"estofa"},{"hora":6,"altura_onda":1.44,"periodo_swell":5.1,"velocidade_vento":7.1,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.84,"mare_fase":"vazando"},{"hora":7,"altura_onda":1.48,"periodo_swell":5.1,"velocidade_vento":7.9,"energia_swell":5.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.51,"mare_fase":"vazando"},{"hora":8,"altura_onda":1.53,"periodo_swell":5.1,"velocidade_vento":8.6,"energia_swell":5.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.1,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.57,"periodo_swell":5.1,"velocidade_vento":9.4,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.71,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.59,"periodo_swell":5.1,"velocidade_vento":9.9,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.46,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.62,"periodo_swell":5.2,"velocidade_vento":10.5,"energia_swell":6.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.41,"mare_fase":"estofa"},{"hora":12,"altura_onda":1.65,"periodo_swell":5.2,"velocidade_vento":11,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.57,"mare_fase":"enchendo"},{"hora":13,"altura_onda":1.65,"periodo_swell":5.2,"velocidade_vento":10.6,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.9,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.65,"periodo_swell":5.2,"velocidade_vento":10.1,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.33,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.65,"periodo_swell":5.2,"velocidade_vento":9.7,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.73,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.64,"periodo_swell":5.2,"velocidade_vento":8.9,"energia_swell":6.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":2.01,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.63,"periodo_swell":5.2,"velocidade_vento":8.2,"energia_swell":6.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":2.1,"mare_fase":"estofa"},{"hora":18,"altura_onda":1.63,"periodo_swell":5.2,"velocidade_vento":7.5,"energia_swell":6.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.98,"mare_fase":"vazando"}]},{"data":"2026-11-12","horas":[{"hora":4,"altura_onda":1.74,"periodo_swell":8.9,"velocidade_vento":7.5,"energia_swell":13.3,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":1.74,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.75,"periodo_swell":8.9,"velocidade_vento":7.5,"energia_swell":13.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.89,"mare_fase":"estofa"},{"hora":6,"altura_onda":1.75,"periodo_swell":8.9,"velocidade_vento":7.5,"energia_swell":13.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.85,"mare_fase":"vazando"},{"hora":7,"altura_onda":1.76,"periodo_swell":8.8,"velocidade_vento":8.3,"energia_swell":13.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.64,"mare_fase":"vazando"},{"hora":8,"altura_onda":1.76,"periodo_swell":8.8,"velocidade_vento":9,"energia_swell":13.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.3,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.77,"periodo_swell":8.8,"velocidade_vento":9.8,"energia_swell":13.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.94,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.76,"periodo_swell":8.8,"velocidade_vento":9.8,"energia_swell":13.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.64,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.75,"periodo_swell":8.7,"velocidade_vento":9.8,"energia_swell":13.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.51,"mare_fase":"estofa"},{"hora":12,"altura_onda":1.74,"periodo_swell":8.7,"velocidade_vento":9.7,"energia_swell":12.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.56,"mare_fase":"enchendo"},{"hora":13,"altura_onda":1.73,"periodo_swell":8.6,"velocidade_vento":9.9,"energia_swell":12.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.78,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.73,"periodo_swell":8.6,"velocidade_vento":10,"energia_swell":12.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.12,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.72,"periodo_swell":8.5,"velocidade_vento":10.1,"energia_swell":12.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.49,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.71,"periodo_swell":8.3,"velocidade_vento":9.2,"energia_swell":11.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.81,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.7,"periodo_swell":8.1,"velocidade_vento":8.3,"energia_swell":11.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.98,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.69,"periodo_swell":7.9,"velocidade_vento":7.3,"energia_swell":11.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.97,"mare_fase":"vazando"}]},{"data":"2026-11-13","horas":[{"hora":4,"altura_onda":1.7,"periodo_swell":5.3,"velocidade_vento":3.1,"energia_swell":7.6,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.5,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.69,"periodo_swell":5.3,"velocidade_vento":2.9,"energia_swell":7.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.72,"mare_fase":"enchendo"},{"hora":6,"altura_onda":1.68,"periodo_swell":5.3,"velocidade_vento":2.7,"energia_swell":7.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.8,"mare_fase":"estofa"},{"hora":7,"altura_onda":1.65,"periodo_swell":5.3,"velocidade_vento":4.2,"energia_swell":7.1,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.71,"mare_fase":"vazando"},{"hora":8,"altura_onda":1.62,"periodo_swell":5.3,"velocidade_vento":5.6,"energia_swell":6.8,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.48,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.6,"periodo_swell":5.3,"velocidade_vento":7,"energia_swell":6.7,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.17,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.58,"periodo_swell":5.4,"velocidade_vento":7.2,"energia_swell":6.6,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.87,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.56,"periodo_swell":5.4,"velocidade_vento":7.4,"energia_swell":6.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.66,"mare_fase":"vazando"},{"hora":12,"altura_onda":1.54,"periodo_swell":5.5,"velocidade_vento":7.5,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.6,"mare_fase":"estofa"},{"hora":13,"altura_onda":1.53,"periodo_swell":5.5,"velocidade_vento":8,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.71,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.51,"periodo_swell":5.5,"velocidade_vento":8.4,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.95,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.5,"periodo_swell":5.6,"velocidade_vento":8.8,"energia_swell":6.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.26,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.5,"periodo_swell":5.6,"velocidade_vento":8,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.58,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.5,"periodo_swell":5.7,"velocidade_vento":7.2,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.81,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.5,"periodo_swell":5.7,"velocidade_vento":6.4,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.9,"mare_fase":"estofa"}]},{"data":"2026-11-14","horas":[{"hora":4,"altura_onda":1.5,"periodo_swell":5.4,"velocidade_vento":1.7,"energia_swell":5.9,"direcao_swell":"ESE","direcao_vento":"SSE","mare_altura":1.28,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.49,"periodo_swell":5.4,"velocidade_vento":2.4,"energia_swell":5.8,"direcao_swell":"ESE","direcao_vento":"SSE","mare_altura":1.52,"mare_fase":"enchendo"},{"hora":6,"altura_onda":1.49,"periodo_swell":5.3,"velocidade_vento":3.1,"energia_swell":5.8,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":1.67,"mare_fase":"enchendo"},{"hora":7,"altura_onda":1.48,"periodo_swell":5.3,"velocidade_vento":4.6,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":1.69,"mare_fase":"estofa"},{"hora":8,"altura_onda":1.48,"periodo_swell":5.3,"velocidade_vento":6.1,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.59,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.47,"periodo_swell":5.3,"velocidade_vento":7.7,"energia_swell":5.6,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.39,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.46,"periodo_swell":5.3,"velocidade_vento":8.2,"energia_swell":5.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.15,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.45,"periodo_swell":5.3,"velocidade_vento":8.7,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.94,"mare_fase":"vazando"},{"hora":12,"altura_onda":1.44,"periodo_swell":5.3,"velocidade_vento":9.3,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.82,"mare_fase":"vazando"},{"hora":13,"altura_onda":1.44,"periodo_swell":5.3,"velocidade_vento":9.5,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.81,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.43,"periodo_swell":5.4,"velocidade_vento":9.8,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.93,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.43,"periodo_swell":5.4,"velocidade_vento":10,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.13,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.42,"periodo_swell":5.4,"velocidade_vento":8.8,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.38,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.41,"periodo_swell":5.4,"velocidade_vento":7.6,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.6,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.4,"periodo_swell":5.4,"velocidade_vento":6.4,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.76,"mare_fase":"enchendo"}]},{"data":"2026-11-15","horas":[{"hora":4,"altura_onda":1.33,"periodo_swell":5.4,"velocidade_vento":4.4,"energia_swell":4.7,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.12,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.33,"periodo_swell":5.5,"velocidade_vento":4.9,"energia_swell":4.8,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.36,"mare_fase":"enchendo"},{"hora":6,"altura_onda":1.33,"periodo_swell":5.6,"velocidade_vento":5.4,"energia_swell":4.9,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.57,"mare_fase":"enchendo"},{"hora":7,"altura_onda":1.33,"periodo_swell":5.5,"velocidade_vento":6.6,"energia_swell":4.7,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.69,"mare_fase":"enchendo"},{"hora":8,"altura_onda":1.32,"periodo_swell":5.4,"velocidade_vento":7.9,"energia_swell":4.6,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.68,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.32,"periodo_swell":5.2,"velocidade_vento":9.1,"energia_swell":4.5,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.56,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.32,"periodo_swell":5.4,"velocidade_vento":9.5,"energia_swell":4.6,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.36,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.32,"periodo_swell":5.6,"velocidade_vento":9.9,"energia_swell":4.7,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.12,"mare_fase":"vazando"},{"hora":12,"altura_onda":1.32,"periodo_swell":5.7,"velocidade_vento":10.3,"energia_swell":4.9,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":0.92,"mare_fase":"vazando"},{"hora":13,"altura_onda":1.32,"periodo_swell":5.8,"velocidade_vento":10.6,"energia_swell":4.9,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":0.81,"mare_fase":"vazando"},{"hora":14,"altura_onda":1.33,"periodo_swell":5.8,"velocidade_vento":10.9,"energia_swell":5,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":0.82,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.33,"periodo_swell":5.8,"velocidade_vento":11.2,"energia_swell":5,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":0.95,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.34,"periodo_swell":5.8,"velocidade_vento":10,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.16,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.34,"periodo_swell":5.8,"velocidade_vento":8.8,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.4,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.35,"periodo_swell":5.8,"velocidade_vento":7.6,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.63,"mare_fase":"enchendo"}]},{"data":"2026-11-16","horas":[{"hora":4,"altura_onda":1.42,"periodo_swell":5.4,"velocidade_vento":5.6,"energia_swell":5.3,"direcao_swell":"E","direcao_vento":"NE","mare_altura":0.95,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.43,"periodo_swell":5.3,"velocidade_vento":5.6,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.13,"mare_fase":"enchendo"},{"hora":6,"altura_onda":1.43,"periodo_swell":5.3,"velocidade_vento":5.6,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.32,"mare_fase":"enchendo"},{"hora":7,"altura_onda":1.42,"periodo_swell":5.3,"velocidade_vento":6.9,"energia_swell":5.2,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.49,"mare_fase":"enchendo"},{"hora":8,"altura_onda":1.41,"periodo_swell":5.3,"velocidade_vento":8.2,"energia_swell":5.1,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.59,"mare_fase":"enchendo"},{"hora":9,"altura_onda":1.4,"periodo_swell":5.2,"velocidade_vento":9.6,"energia_swell":5,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.59,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.39,"periodo_swell":5.3,"velocidade_vento":10.1,"energia_swell":5,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":1.5,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.38,"periodo_swell":5.3,"velocidade_vento":10.7,"energia_swell":5,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":1.35,"mare_fase":"vazando"},{"hora":12,"altura_onda":1.37,"periodo_swell":5.3,"velocidade_vento":11.2,"energia_swell":4.9,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":1.18,"mare_fase":"vazando"},{"hora":13,"altura_onda":1.37,"periodo_swell":5.4,"velocidade_vento":11.5,"energia_swell":5,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":1.02,"mare_fase":"vazando"},{"hora":14,"altura_onda":1.37,"periodo_swell":5.5,"velocidade_vento":11.9,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":0.92,"mare_fase":"vazando"},{"hora":15,"altura_onda":1.37,"periodo_swell":5.6,"velocidade_vento":12.3,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":0.91,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.38,"periodo_swell":5.6,"velocidade_vento":11.4,"energia_swell":5.2,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":0.99,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.38,"periodo_swell":5.6,"velocidade_vento":10.5,"energia_swell":5.3,"direcao_swell":"E","direcao_vento":"ENE","mare_altura":1.16,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.39,"periodo_swell":5.7,"velocidade_vento":9.6,"energia_swell":5.4,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.36,"mare_fase":"enchendo"}]}];
+    var dadosBorete = [{"data":"2026-11-10","horas":[{"hora":8,"altura_onda":0.91,"periodo_swell":6.6,"velocidade_vento":9.7,"energia_swell":2.7,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":0.89,"mare_fase":"vazando"},{"hora":9,"altura_onda":0.93,"periodo_swell":6.6,"velocidade_vento":10.5,"energia_swell":2.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.55,"mare_fase":"vazando"},{"hora":10,"altura_onda":0.95,"periodo_swell":6.6,"velocidade_vento":11.1,"energia_swell":2.9,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":0.4,"mare_fase":"estofa"},{"hora":11,"altura_onda":0.97,"periodo_swell":6.6,"velocidade_vento":11.7,"energia_swell":3,"direcao_swell":"E","direcao_vento":"ESE","mare_altura":0.48,"mare_fase":"enchendo"},{"hora":12,"altura_onda":0.99,"periodo_swell":6.6,"velocidade_vento":12.2,"energia_swell":3.2,"direcao_swell":"E","direcao_vento":"SE","mare_altura":0.75,"mare_fase":"enchendo"},{"hora":13,"altura_onda":1.01,"periodo_swell":6.5,"velocidade_vento":12.2,"energia_swell":3.3,"direcao_swell":"E","direcao_vento":"SE","mare_altura":1.15,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.03,"periodo_swell":6.4,"velocidade_vento":12.2,"energia_swell":3.3,"direcao_swell":"E","direcao_vento":"SE","mare_altura":1.57,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.05,"periodo_swell":6.4,"velocidade_vento":12.2,"energia_swell":3.4,"direcao_swell":"E","direcao_vento":"SE","mare_altura":1.91,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.09,"periodo_swell":6.3,"velocidade_vento":11.9,"energia_swell":3.7,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":2.09,"mare_fase":"estofa"},{"hora":17,"altura_onda":1.13,"periodo_swell":6.2,"velocidade_vento":11.5,"energia_swell":3.9,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":2.05,"mare_fase":"vazando"},{"hora":18,"altura_onda":1.18,"periodo_swell":6.1,"velocidade_vento":11.2,"energia_swell":4.2,"direcao_swell":"ESE","direcao_vento":"SE","mare_altura":1.8,"mare_fase":"vazando"}]},{"data":"2026-11-11","horas":[{"hora":4,"altura_onda":1.35,"periodo_swell":6.2,"velocidade_vento":9,"energia_swell":5.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.93,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.35,"periodo_swell":6.3,"velocidade_vento":9.1,"energia_swell":5.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.99,"mare_fase":"estofa"},{"hora":6,"altura_onda":1.35,"periodo_swell":6.4,"velocidade_vento":9.2,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.84,"mare_fase":"vazando"},{"hora":7,"altura_onda":1.39,"periodo_swell":6.4,"velocidade_vento":9.9,"energia_swell":6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.51,"mare_fase":"vazando"},{"hora":8,"altura_onda":1.43,"periodo_swell":6.4,"velocidade_vento":10.7,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.1,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.47,"periodo_swell":6.5,"velocidade_vento":11.4,"energia_swell":6.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.71,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.5,"periodo_swell":6.5,"velocidade_vento":11.3,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.46,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.54,"periodo_swell":6.6,"velocidade_vento":11.2,"energia_swell":7.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.41,"mare_fase":"estofa"},{"hora":12,"altura_onda":1.57,"periodo_swell":6.7,"velocidade_vento":11.1,"energia_swell":8.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.57,"mare_fase":"enchendo"},{"hora":13,"altura_onda":1.57,"periodo_swell":6.8,"velocidade_vento":10.9,"energia_swell":8.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.9,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.57,"periodo_swell":6.9,"velocidade_vento":10.8,"energia_swell":8.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.33,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.57,"periodo_swell":7,"velocidade_vento":10.7,"energia_swell":8.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.73,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.55,"periodo_swell":7,"velocidade_vento":10.1,"energia_swell":8.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":2.01,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.54,"periodo_swell":7,"velocidade_vento":9.6,"energia_swell":8.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":2.1,"mare_fase":"estofa"},{"hora":18,"altura_onda":1.52,"periodo_swell":7,"velocidade_vento":9.1,"energia_swell":7.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.98,"mare_fase":"vazando"}]},{"data":"2026-11-12","horas":[{"hora":4,"altura_onda":1.59,"periodo_swell":7.1,"velocidade_vento":10.2,"energia_swell":8.8,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.74,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.6,"periodo_swell":7.2,"velocidade_vento":10.6,"energia_swell":9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.89,"mare_fase":"estofa"},{"hora":6,"altura_onda":1.61,"periodo_swell":7.2,"velocidade_vento":11,"energia_swell":9.1,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.85,"mare_fase":"vazando"},{"hora":7,"altura_onda":1.61,"periodo_swell":7.2,"velocidade_vento":10.8,"energia_swell":9.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.64,"mare_fase":"vazando"},{"hora":8,"altura_onda":1.61,"periodo_swell":7.3,"velocidade_vento":10.6,"energia_swell":9.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.3,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.61,"periodo_swell":7.3,"velocidade_vento":10.4,"energia_swell":9.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.94,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.6,"periodo_swell":7.4,"velocidade_vento":10.4,"energia_swell":9.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.64,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.58,"periodo_swell":7.4,"velocidade_vento":10.4,"energia_swell":9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.51,"mare_fase":"estofa"},{"hora":12,"altura_onda":1.57,"periodo_swell":7.4,"velocidade_vento":10.4,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.56,"mare_fase":"enchendo"},{"hora":13,"altura_onda":1.56,"periodo_swell":7.5,"velocidade_vento":10.6,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.78,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.56,"periodo_swell":7.5,"velocidade_vento":10.9,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.12,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.55,"periodo_swell":7.5,"velocidade_vento":11.1,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.49,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.54,"periodo_swell":7.5,"velocidade_vento":10.3,"energia_swell":8.7,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.81,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.53,"periodo_swell":7.5,"velocidade_vento":9.4,"energia_swell":8.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.98,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.52,"periodo_swell":7.5,"velocidade_vento":8.5,"energia_swell":8.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.97,"mare_fase":"vazando"}]},{"data":"2026-11-13","horas":[{"hora":4,"altura_onda":1.6,"periodo_swell":7.4,"velocidade_vento":6.8,"energia_swell":9.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.5,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.58,"periodo_swell":7.3,"velocidade_vento":6.3,"energia_swell":9,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.72,"mare_fase":"enchendo"},{"hora":6,"altura_onda":1.57,"periodo_swell":7.3,"velocidade_vento":5.7,"energia_swell":8.9,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.8,"mare_fase":"estofa"},{"hora":7,"altura_onda":1.55,"periodo_swell":7.3,"velocidade_vento":6.5,"energia_swell":8.7,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.71,"mare_fase":"vazando"},{"hora":8,"altura_onda":1.54,"periodo_swell":7.3,"velocidade_vento":7.3,"energia_swell":8.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.48,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.52,"periodo_swell":7.4,"velocidade_vento":8.1,"energia_swell":8.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.17,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.49,"periodo_swell":7.4,"velocidade_vento":7.9,"energia_swell":8,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.87,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.47,"periodo_swell":7.4,"velocidade_vento":7.7,"energia_swell":7.8,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.66,"mare_fase":"vazando"},{"hora":12,"altura_onda":1.44,"periodo_swell":7.4,"velocidade_vento":7.4,"energia_swell":7.5,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.6,"mare_fase":"estofa"},{"hora":13,"altura_onda":1.43,"periodo_swell":7.4,"velocidade_vento":7.9,"energia_swell":7.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.71,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.41,"periodo_swell":7.4,"velocidade_vento":8.5,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":0.95,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.4,"periodo_swell":7.5,"velocidade_vento":9,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.26,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.4,"periodo_swell":7.5,"velocidade_vento":8.7,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.58,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.4,"periodo_swell":7.5,"velocidade_vento":8.4,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.81,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.4,"periodo_swell":7.5,"velocidade_vento":8.1,"energia_swell":7.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.9,"mare_fase":"estofa"}]},{"data":"2026-11-14","horas":[{"hora":4,"altura_onda":1.35,"periodo_swell":7.4,"velocidade_vento":4.5,"energia_swell":6.6,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.28,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.34,"periodo_swell":7.4,"velocidade_vento":5,"energia_swell":6.5,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.52,"mare_fase":"enchendo"},{"hora":6,"altura_onda":1.33,"periodo_swell":7.4,"velocidade_vento":5.5,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.67,"mare_fase":"enchendo"},{"hora":7,"altura_onda":1.32,"periodo_swell":7.4,"velocidade_vento":6.5,"energia_swell":6.4,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.69,"mare_fase":"estofa"},{"hora":8,"altura_onda":1.31,"periodo_swell":7.4,"velocidade_vento":7.5,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.59,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":8.5,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.39,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":8.9,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"ESE","mare_altura":1.15,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":9.3,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.94,"mare_fase":"vazando"},{"hora":12,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":9.7,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.82,"mare_fase":"vazando"},{"hora":13,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":10.2,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.81,"mare_fase":"enchendo"},{"hora":14,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":10.6,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":0.93,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":11.1,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.13,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.3,"periodo_swell":7.5,"velocidade_vento":10.3,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.38,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.29,"periodo_swell":7.5,"velocidade_vento":9.6,"energia_swell":6.1,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.6,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.29,"periodo_swell":7.5,"velocidade_vento":8.8,"energia_swell":6.1,"direcao_swell":"ESE","direcao_vento":"E","mare_altura":1.76,"mare_fase":"enchendo"}]},{"data":"2026-11-15","horas":[{"hora":4,"altura_onda":1.22,"periodo_swell":7.2,"velocidade_vento":5.6,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.12,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.22,"periodo_swell":7.2,"velocidade_vento":6.7,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.36,"mare_fase":"enchendo"},{"hora":6,"altura_onda":1.22,"periodo_swell":7.2,"velocidade_vento":7.9,"energia_swell":5.3,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.57,"mare_fase":"enchendo"},{"hora":7,"altura_onda":1.23,"periodo_swell":7.3,"velocidade_vento":8.7,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.69,"mare_fase":"enchendo"},{"hora":8,"altura_onda":1.23,"periodo_swell":7.3,"velocidade_vento":9.5,"energia_swell":5.4,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.68,"mare_fase":"vazando"},{"hora":9,"altura_onda":1.24,"periodo_swell":7.3,"velocidade_vento":10.3,"energia_swell":5.5,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.56,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.25,"periodo_swell":7.3,"velocidade_vento":10.9,"energia_swell":5.6,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.36,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.26,"periodo_swell":7.3,"velocidade_vento":11.5,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.12,"mare_fase":"vazando"},{"hora":12,"altura_onda":1.27,"periodo_swell":7.3,"velocidade_vento":12.1,"energia_swell":5.7,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":0.92,"mare_fase":"vazando"},{"hora":13,"altura_onda":1.28,"periodo_swell":7.3,"velocidade_vento":12.4,"energia_swell":5.8,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":0.81,"mare_fase":"vazando"},{"hora":14,"altura_onda":1.29,"periodo_swell":7.2,"velocidade_vento":12.7,"energia_swell":5.9,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":0.82,"mare_fase":"enchendo"},{"hora":15,"altura_onda":1.3,"periodo_swell":7.2,"velocidade_vento":13,"energia_swell":6,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":0.95,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.32,"periodo_swell":7.2,"velocidade_vento":12.4,"energia_swell":6.1,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.16,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.33,"periodo_swell":7.1,"velocidade_vento":11.7,"energia_swell":6.2,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.4,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.35,"periodo_swell":7.1,"velocidade_vento":11,"energia_swell":6.3,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.63,"mare_fase":"enchendo"}]},{"data":"2026-11-16","horas":[{"hora":4,"altura_onda":1.13,"periodo_swell":6.7,"velocidade_vento":9,"energia_swell":4.2,"direcao_swell":"E","direcao_vento":"NE","mare_altura":0.95,"mare_fase":"enchendo"},{"hora":5,"altura_onda":1.12,"periodo_swell":6.6,"velocidade_vento":8.8,"energia_swell":4.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.13,"mare_fase":"enchendo"},{"hora":6,"altura_onda":1.12,"periodo_swell":6.6,"velocidade_vento":8.6,"energia_swell":4.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":1.32,"mare_fase":"enchendo"},{"hora":7,"altura_onda":1.13,"periodo_swell":6.7,"velocidade_vento":9.8,"energia_swell":4.2,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":1.49,"mare_fase":"enchendo"},{"hora":8,"altura_onda":1.13,"periodo_swell":6.7,"velocidade_vento":10.9,"energia_swell":4.2,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.59,"mare_fase":"enchendo"},{"hora":9,"altura_onda":1.14,"periodo_swell":6.8,"velocidade_vento":12,"energia_swell":4.3,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.59,"mare_fase":"vazando"},{"hora":10,"altura_onda":1.15,"periodo_swell":6.8,"velocidade_vento":12.3,"energia_swell":4.4,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.5,"mare_fase":"vazando"},{"hora":11,"altura_onda":1.17,"periodo_swell":6.8,"velocidade_vento":12.6,"energia_swell":4.5,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.35,"mare_fase":"vazando"},{"hora":12,"altura_onda":1.18,"periodo_swell":6.8,"velocidade_vento":12.9,"energia_swell":4.6,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.18,"mare_fase":"vazando"},{"hora":13,"altura_onda":1.19,"periodo_swell":6.8,"velocidade_vento":13.4,"energia_swell":4.7,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.02,"mare_fase":"vazando"},{"hora":14,"altura_onda":1.21,"periodo_swell":6.9,"velocidade_vento":13.9,"energia_swell":4.9,"direcao_swell":"ESE","direcao_vento":"NE","mare_altura":0.92,"mare_fase":"vazando"},{"hora":15,"altura_onda":1.22,"periodo_swell":6.9,"velocidade_vento":14.4,"energia_swell":5.1,"direcao_swell":"ESE","direcao_vento":"ENE","mare_altura":0.91,"mare_fase":"enchendo"},{"hora":16,"altura_onda":1.24,"periodo_swell":6.8,"velocidade_vento":14.1,"energia_swell":5.2,"direcao_swell":"E","direcao_vento":"NE","mare_altura":0.99,"mare_fase":"enchendo"},{"hora":17,"altura_onda":1.25,"periodo_swell":6.8,"velocidade_vento":13.8,"energia_swell":5.2,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.16,"mare_fase":"enchendo"},{"hora":18,"altura_onda":1.27,"periodo_swell":6.7,"velocidade_vento":13.6,"energia_swell":5.3,"direcao_swell":"E","direcao_vento":"NE","mare_altura":1.36,"mare_fase":"enchendo"}]}];
 
     var SPOTS = [
       { id: 'ita', nome: 'Itapuama', dados: dadosItapuama },
       { id: 'bor', nome: 'Borete', dados: dadosBorete }
     ];
 
-    // Nomes possíveis dos campos (ajuste aqui se o seu JSON usar outros nomes)
     var HORA_KEYS = ['hora', 'horario', 'time', 'hour'];
     var MARE_KEYS = ['mare_altura', 'altura_mare', 'mare', 'nivel_mare', 'tide'];
     var MARE_FASE_KEYS = ['mare_fase', 'fase_mare', 'mare_estado', 'tendencia_mare'];
@@ -541,8 +525,8 @@
 
     var SIGLAS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
     var BTN_BASE = 'px-3 py-1.5 rounded-xl border font-mono text-xs font-bold transition shrink-0 ';
-    var BTN_ON = BTN_BASE + 'bg-cyan-500 text-black border-cyan-400';
-    var BTN_OFF = BTN_BASE + 'bg-slate-900/80 text-slate-300 border-slate-700 hover:border-slate-500';
+    var BTN_ON = BTN_BASE + 'bg-[#0EA5E9] text-white border-[#0EA5E9] shadow-sm';
+    var BTN_OFF = BTN_BASE + 'bg-white text-[#64748B] border-slate-200 hover:border-slate-300';
 
     var diaAtual = 0;
 
@@ -556,7 +540,6 @@
       return undefined;
     }
 
-    // ---------- Datas ----------
     var DIAS = [];
     for (var i = 0; i < 7; i++) {
       var d = new Date();
@@ -564,7 +547,6 @@
       DIAS.push({ sigla: SIGLAS[d.getDay()], txt: pad(d.getDate()) + '/' + pad(d.getMonth() + 1) });
     }
 
-    // ---------- Horas ----------
     function hourNum(h) {
       var v = pick(h, HORA_KEYS);
       if (v === undefined) return null;
@@ -580,7 +562,6 @@
       return pad(hh) + ':' + pad(mm);
     }
 
-    // ---------- Nota (0-10): altura 40% | período 30% | vento 30% (ajuste os pesos aqui) ----------
     function calcScore(h) {
       var alt = num(h.altura_onda), per = num(h.periodo_swell), ven = num(h.velocidade_vento);
       var sAlt = Math.min(alt / 1.2, 1) * 4;
@@ -590,27 +571,26 @@
       return sAlt + sPer + sVen;
     }
     function scoreLabel(s) {
-      if (s >= 8) return 'Tá pegando!';
+      if (s >= 8) return 'Tá pegando! 🔥';
       if (s >= 6.5) return 'Vale a pena sair';
       if (s >= 5) return 'Dá pra remar';
       if (s >= 3.5) return 'Fraco hoje';
       return 'Melhor ficar em casa';
     }
     function scoreBadge(s) {
-      if (s >= 7.5) return 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400';
-      if (s >= 5) return 'bg-amber-500/10 border-amber-500/30 text-amber-400';
-      return 'bg-red-500/10 border-red-500/30 text-red-400';
+      if (s >= 7.5) return 'bg-teal-50 border-teal-200 text-[#14B8A6]';
+      if (s >= 5) return 'bg-amber-50 border-amber-200 text-[#F59E0B]';
+      return 'bg-rose-50 border-rose-200 text-rose-500';
     }
     function scoreText(s) {
-      if (s >= 7.5) return 'text-emerald-400';
-      if (s >= 5) return 'text-amber-400';
-      return 'text-red-400';
+      if (s >= 7.5) return 'text-[#14B8A6]';
+      if (s >= 5) return 'text-[#F59E0B]';
+      return 'text-rose-500';
     }
-    function corAltura(a) { return a >= 0.8 ? 'text-emerald-400' : a >= 0.5 ? 'text-amber-400' : 'text-red-400'; }
-    function corPeriodo(p) { return p >= 10 ? 'text-emerald-400' : p >= 8 ? 'text-amber-400' : 'text-red-400'; }
-    function corVento(v) { return v <= 8 ? 'text-emerald-400' : v <= 14 ? 'text-amber-400' : 'text-red-400'; }
+    function corAltura(a) { return a >= 0.8 ? 'text-[#14B8A6]' : a >= 0.5 ? 'text-[#F59E0B]' : 'text-[#F97316]'; }
+    function corPeriodo(p) { return p >= 10 ? 'text-[#14B8A6]' : p >= 8 ? 'text-[#F59E0B]' : 'text-slate-400'; }
+    function corVento(v) { return v <= 8 ? 'text-[#14B8A6]' : v <= 14 ? 'text-[#F59E0B]' : 'text-[#F97316]'; }
 
-    // ---------- Melhor hora / janela ----------
     function horasDoDia(dados, idx) {
       var dia = dados && dados[idx];
       return dia && dia.horas ? dia.horas : [];
@@ -645,7 +625,6 @@
       return { ini: a, fim: b + step };
     }
 
-    // ---------- Render dos cards ----------
     function setTile(id, texto, cls) {
       var el = document.getElementById(id);
       if (!el) return;
@@ -662,27 +641,16 @@
       var h = best.h;
       var alt = num(h.altura_onda), per = num(h.periodo_swell), ven = num(h.velocidade_vento), en = num(h.energia_swell);
 
-      var heroEl = document.getElementById(s.id + '-hero');
-      if (heroEl) {
-        heroEl.textContent = alt.toFixed(1);
-        heroEl.className = 'text-6xl font-black leading-none ' + corAltura(alt);
-      }
-      var amin = null, amax = null;
-      best.lista.forEach(function (x) {
-        var a = num(x.altura_onda);
-        if (amin === null || a < amin) amin = a;
-        if (amax === null || a > amax) amax = a;
-      });
-      setText(s.id + '-faixa', amin !== null ? 'no dia: ' + amin.toFixed(1) + ' a ' + amax.toFixed(1) + ' m' : '');
+      setTile(s.id + '-altura', alt.toFixed(1) + 'm', corAltura(alt));
       setTile(s.id + '-periodo', per.toFixed(0) + 's', corPeriodo(per));
       setTile(s.id + '-vento', ven.toFixed(0) + ' nós', corVento(ven));
 
       var mare = pick(h, MARE_KEYS);
       var mareTxt = '—';
-      if (mare !== undefined) {
+      if (mare !== undefined && mare !== null) {
         mareTxt = isNaN(parseFloat(mare)) ? String(mare) : parseFloat(mare).toFixed(1) + 'm';
       }
-      setTile(s.id + '-mare', mareTxt, 'text-cyan-400');
+      setTile(s.id + '-mare', mareTxt, 'text-[#0EA5E9]');
 
       var sc = document.getElementById(s.id + '-score');
       if (sc) {
@@ -692,7 +660,7 @@
       var lb = document.getElementById(s.id + '-label');
       if (lb) {
         lb.textContent = scoreLabel(best.score);
-        lb.className = 'text-sm font-bold mt-2 ' + scoreText(best.score);
+        lb.className = 'text-sm font-bold mt-3 ' + scoreText(best.score);
       }
       var hn = hourNum(h);
       setText(s.id + '-pico', hn !== null ? 'Melhor horário: ' + fmtHora(hn) : '');
@@ -704,7 +672,7 @@
       if (fase) partes.push('Maré ' + fase);
       if (en > 0) partes.push(en.toFixed(1) + ' kW/m');
       var ex = document.getElementById(s.id + '-extra');
-      if (ex) ex.innerHTML = '<i class="fa-solid fa-compass text-cyan-400 mr-1"></i> ' + (partes.length ? partes.join(' | ') : 'Previsão atualizada');
+      if (ex) ex.innerHTML = '<i class="fa-solid fa-compass text-[#0EA5E9] mr-1"></i> ' + (partes.length ? partes.join(' | ') : 'Previsão atualizada');
 
       return { nome: s.nome, best: best, score: best.score, h: h, alt: alt, per: per, ven: ven };
     }
@@ -725,8 +693,8 @@
       }
 
       var j = janela(top.best);
-      var titulo = top.nome + ' ' + top.alt.toFixed(1) + 'm' + (j ? ' das ' + fmtHora(j.ini) + ' às ' + fmtHora(j.fim) : ' (melhor momento do dia)');
-      var desc = 'Período de ' + top.per.toFixed(0) + 's e vento de ' + top.ven.toFixed(0) + ' nós';
+      var titulo = top.nome + (j ? ' das ' + fmtHora(j.ini) + ' às ' + fmtHora(j.fim) : ' (melhor momento do dia)');
+      var desc = 'Onda de ' + top.alt.toFixed(1) + 'm, período de ' + top.per.toFixed(0) + 's e vento de ' + top.ven.toFixed(0) + ' nós';
       if (top.per >= 11) desc += ' — periodão!';
       else desc += '.';
       if (seg) desc += ' ' + seg.nome + ' chega a ' + seg.score.toFixed(1) + ' / 10 no melhor horário dele.';
@@ -735,7 +703,6 @@
       setText('janela-desc', desc);
     }
 
-    // ---------- Sparkline ----------
     function sparkline(id, dados, sel) {
       var el = document.getElementById(id);
       if (!el) return;
@@ -746,7 +713,7 @@
         vals.push(m);
       }
       if (!vals.some(function (v) { return v > 0; })) {
-        el.innerHTML = '<p class="text-[10px] font-mono text-slate-600">Sem dados do gráfico</p>';
+        el.innerHTML = '<p class="text-[10px] font-mono text-slate-400">Sem dados do gráfico</p>';
         return;
       }
       var W = 260, H = 56, P = 8;
@@ -759,27 +726,26 @@
       var gid = 'g-' + id;
       var circulos = pts.map(function (p, i) {
         return i === sel
-          ? '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="4.5" fill="#22d3ee" stroke="#0f172a" stroke-width="2"/>'
-          : '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="2.5" fill="#475569"/>';
+          ? '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="4.5" fill="#0EA5E9" stroke="#FFFFFF" stroke-width="2"/>'
+          : '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="2.5" fill="#94A3B8"/>';
       }).join('');
       var rotulos = vals.map(function (v, i) {
-        return '<span class="' + (i === sel ? 'text-cyan-400 font-bold' : '') + '">' + (i === 0 ? 'HOJE' : DIAS[i].sigla) + '<br>' + v.toFixed(1) + '</span>';
+        return '<span class="' + (i === sel ? 'text-[#0EA5E9] font-bold' : '') + '">' + (i === 0 ? 'HOJE' : DIAS[i].sigla) + '<br>' + v.toFixed(1) + '</span>';
       }).join('');
 
       el.innerHTML =
         '<svg viewBox="0 0 ' + W + ' ' + H + '" class="w-full h-auto">' +
           '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1">' +
-            '<stop offset="0%" stop-color="#22d3ee" stop-opacity="0.35"/>' +
-            '<stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>' +
+            '<stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.2"/>' +
+            '<stop offset="100%" stop-color="#0EA5E9" stop-opacity="0"/>' +
           '</linearGradient></defs>' +
           '<path d="' + area + '" fill="url(#' + gid + ')"/>' +
-          '<path d="' + linha + '" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+          '<path d="' + linha + '" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
           circulos +
         '</svg>' +
-        '<div class="flex justify-between text-[9px] font-mono text-slate-500 mt-1 text-center leading-tight">' + rotulos + '</div>';
+        '<div class="flex justify-between text-[9px] font-mono text-slate-400 mt-1 text-center leading-tight">' + rotulos + '</div>';
     }
 
-    // ---------- Render geral do dia ----------
     function renderDia(idx) {
       diaAtual = idx;
       setText('hero-dia', idx === 0 ? 'Hoje' : DIAS[idx].sigla + ' ' + DIAS[idx].txt);
@@ -789,7 +755,6 @@
       sparkline('spark-bor', dadosBorete, idx);
     }
 
-    // ---------- Régua de dias ----------
     var reguaContainer = document.getElementById('regua-dias');
     DIAS.forEach(function (dia, i) {
       var btn = document.createElement('button');
@@ -803,7 +768,6 @@
       reguaContainer.appendChild(btn);
     });
 
-    // ---------- Busca de pico ----------
     function normaliza(s) {
       return String(s).toLowerCase()
         .replace(/[áàãâ]/g, 'a').replace(/[éê]/g, 'e').replace(/[íî]/g, 'i')
@@ -820,17 +784,15 @@
       document.getElementById('busca-vazio').classList.toggle('hidden', algum || !q);
     });
 
-    // ---------- Mapa Leaflet ----------
     var map = L.map('map', { zoomControl: false }).setView([-8.3500, -34.9600], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
 
     var markerItapuama = L.marker([-8.3015, -34.9520]).addTo(map);
-    markerItapuama.bindPopup("<b>Itapuama</b><br>Cabo de Santo Agostinho<br><br><a href='/dashboards/itapuama' style='color:#00f0ff;font-weight:bold;'>Ver Dashboard 7 Dias →</a>");
+    markerItapuama.bindPopup("<b>Itapuama</b><br>Cabo de Santo Agostinho<br><br><a href='/dashboards/itapuama' style='color:#0EA5E9;font-weight:bold;'>Ver 7 Dias →</a>");
 
     var markerBorete = L.marker([-8.4060, -35.0000]).addTo(map);
-    markerBorete.bindPopup("<b>Borete</b><br>Porto de Galinhas<br><br><a href='/dashboards/borete' style='color:#00f0ff;font-weight:bold;'>Ver Dashboard 7 Dias →</a>");
+    markerBorete.bindPopup("<b>Borete</b><br>Porto de Galinhas<br><br><a href='/dashboards/borete' style='color:#0EA5E9;font-weight:bold;'>Ver 7 Dias →</a>");
 
-    // ---------- Inicialização ----------
     renderDia(0);
   </script>
 </body>
