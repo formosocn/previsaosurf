@@ -124,7 +124,7 @@
 
   <!-- RENDERIZADOR DOS CARDS DE MARÉ -->
   <script>
-    var maresDados = [{"data":"10/11/2026","dia_semana":"TER.","mare_texto":"04:10 | CHEIA 2.1m | 10:10 | SECA 0.4m | 16:19 | CHEIA 2.1m | 22:34 | SECA 0.3m"},{"data":"11/11/2026","dia_semana":"QUA.","mare_texto":"04:47 | CHEIA 2.0m | 10:44 | SECA 0.4m | 16:55 | CHEIA 2.1m | 23:08 | SECA 0.4m"},{"data":"12/11/2026","dia_semana":"QUI.","mare_texto":"05:19 | CHEIA 1.9m | 11:14 | SECA 0.5m | 17:27 | CHEIA 2.0m | 23:44 | SECA 0.5m"},{"data":"13/11/2026","dia_semana":"SEX.","mare_texto":"05:59 | CHEIA 1.8m | 11:51 | SECA 0.6m | 18:04 | CHEIA 1.9m"},{"data":"14/11/2026","dia_semana":"SÁB.","mare_texto":"00:23 | SECA 0.6m | 06:40 | CHEIA 1.7m | 12:32 | SECA 0.8m | 18:51 | CHEIA 1.8m"},{"data":"15/11/2026","dia_semana":"DOM.","mare_texto":"01:10 | SECA 0.7m | 07:29 | CHEIA 1.7m | 13:25 | SECA 0.8m | 19:44 | CHEIA 1.8m"},{"data":"16/11/2026","dia_semana":"SEG.","mare_texto":"02:12 | SECA 0.8m | 08:32 | CHEIA 1.6m | 14:38 | SECA 0.9m | 20:49 | CHEIA 1.7m"}];
+    var maresDados = [{"data":"11/11/2026","dia_semana":"QUA.","mare_texto":"04:47 | CHEIA 2.0m | 10:44 | SECA 0.4m | 16:55 | CHEIA 2.1m | 23:08 | SECA 0.4m"},{"data":"12/11/2026","dia_semana":"QUI.","mare_texto":"05:19 | CHEIA 1.9m | 11:14 | SECA 0.5m | 17:27 | CHEIA 2.0m | 23:44 | SECA 0.5m"},{"data":"13/11/2026","dia_semana":"SEX.","mare_texto":"05:59 | CHEIA 1.8m | 11:51 | SECA 0.6m | 18:04 | CHEIA 1.9m"},{"data":"14/11/2026","dia_semana":"SÁB.","mare_texto":"00:23 | SECA 0.6m | 06:40 | CHEIA 1.7m | 12:32 | SECA 0.8m | 18:51 | CHEIA 1.8m"},{"data":"15/11/2026","dia_semana":"DOM.","mare_texto":"01:10 | SECA 0.7m | 07:29 | CHEIA 1.7m | 13:25 | SECA 0.8m | 19:44 | CHEIA 1.8m"},{"data":"16/11/2026","dia_semana":"SEG.","mare_texto":"02:12 | SECA 0.8m | 08:32 | CHEIA 1.6m | 14:38 | SECA 0.9m | 20:49 | CHEIA 1.7m"},{"data":"17/11/2026","dia_semana":"TER.","mare_texto":"03:27 | SECA 0.8m | 09:51 | CHEIA 1.6m | 16:01 | SECA 0.9m | 22:01 | CHEIA 1.7m"}];
     var container = document.getElementById('grid-mares');
 
     if (!maresDados || !maresDados.length) {
@@ -138,6 +138,33 @@
           var hora = eventos[i];
           var desc = eventos[i+1] || '';
           var isCheia = desc.toUpperCase().indexOf('CHEIA') > -1;
+
+          // Função astronômica para calcular a fase da Lua (Retorna ícone, nome e se é Maré Viva/Morta)
+function getFaseLua(date) {
+  var d = date || new Date();
+  var year = d.getFullYear(), month = d.getMonth() + 1, day = d.getDate();
+  if (month < 3) { year--; month += 12; }
+  month++;
+  var c = 365.25 * year, e = 30.6 * month, jd = c + e + day - 694039.09; // dias desde 1900
+  jd /= 29.5305882; // divide pelo ciclo sinódico
+  var b = parseInt(jd);
+  jd -= b; // fração do ciclo (0 a 1)
+  var phase = Math.round(jd * 8) % 8;
+
+  // Mapa das 8 fases
+  var fases = [
+    { nome: 'Lua Nova', icon: 'fa-[#0EA5E9] fa-circle', tipo: 'Maré Viva (Sizígia)' },
+    { nome: 'Crescente Côncava', icon: 'fa-moon', tipo: 'Maré Intermediária' },
+    { nome: 'Quarto Crescente', icon: 'fa-circle-half-stroke', tipo: 'Maré Morta (Quadratura)' },
+    { nome: 'Crescente Convexa', icon: 'fa-moon', tipo: 'Maré Intermediária' },
+    { nome: 'Lua Cheia', icon: 'fa-regular fa-circle', tipo: 'Maré Viva (Sizígia)' },
+    { nome: 'Minguante Convexa', icon: 'fa-moon', tipo: 'Maré Intermediária' },
+    { name: 'Quarto Minguante', icon: 'fa-circle-half-stroke', tipo: 'Maré Morta (Quadratura)' },
+    { nome: 'Minguante Côncava', icon: 'fa-moon', tipo: 'Maré Intermediária' }
+  ];
+
+  return fases[phase] || fases[0];
+}
           
           // Trata o texto (ex: "CHEIA 2.1m" -> limpa para exibir apenas a altura com o m)
           var alturaClean = desc.replace(/CHEIA|SECA/i, '').trim();
